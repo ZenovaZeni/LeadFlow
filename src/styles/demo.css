@@ -1,0 +1,637 @@
+/* ============================================
+   DEMO FLOW STYLES
+   ============================================ */
+
+.demo-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 0%, rgba(79, 110, 247, 0.08), var(--color-bg-primary) 60%);
+  display: flex;
+  flex-direction: column;
+}
+
+.demo-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-bg-secondary);
+}
+.demo-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.demo-dot {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  font-weight: 700;
+  background: var(--color-bg-primary);
+  color: var(--color-text-muted);
+  transition: all var(--transition-base);
+  position: relative;
+  z-index: 2;
+}
+.demo-dot.active {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(79,110,247,0.4);
+}
+.demo-dot.done {
+  border-color: var(--color-success);
+  background: var(--color-success);
+  color: var(--color-bg-primary);
+  box-shadow: 0 0 10px rgba(84,214,114,0.3);
+}
+.demo-line {
+  width: 30px; height: 2px;
+  background: var(--color-border);
+  transition: all 0.3s ease;
+}
+.demo-line.done {
+  background: var(--color-success);
+  box-shadow: 0 0 8px rgba(84,214,114,0.4);
+}
+
+.demo-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  position: relative;
+  overflow: hidden;
+}
+.demo-stage::before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(79,110,247,0.06) 0%, rgba(0,0,0,0) 60%);
+  filter: blur(40px);
+  z-index: 0;
+  pointer-events: none;
+}
+.demo-stage > * {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.demo-card {
+  background: var(--color-bg-card);
+  border: none;
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  max-width: 520px;
+  width: 100%;
+  box-shadow: var(--shadow-xl);
+}
+.demo-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, rgba(79,110,247,0.15), rgba(79,110,247,0.05));
+  border: 1px solid rgba(79,110,247,0.2);
+  color: #9bacf9;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 auto var(--space-8);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+}
+
+/* ---- Customer Form ---- */
+.customer-form-wrapper {
+  text-align: center;
+}
+.cf-header {
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-6);
+}
+.cf-logo {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-2);
+}
+.cf-header h2 {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+}
+.cf-header p {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+.cf-body {
+  text-align: left;
+}
+.cf-body h3 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-1);
+}
+.cf-sub {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-6);
+}
+.form-group {
+  margin-bottom: var(--space-4);
+}
+.form-group label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+  color: var(--color-text-secondary);
+}
+.cf-privacy {
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-3);
+}
+.input {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #0f172a !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05), 0 1px 0 rgba(255,255,255,0.05) !important;
+}
+.input::placeholder {
+  color: rgba(15, 23, 42, 0.4) !important;
+}
+
+/* ============================================
+   REALISTIC PHONE FRAME
+   ============================================ */
+
+.phone-frame {
+  max-width: 340px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.phone-bezel {
+  background: #000;
+  border-radius: 46px;
+  border: 4px solid #3a3a40;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08) inset,
+    inset 0 0 10px rgba(0,0,0,0.5),
+    0 40px 80px rgba(0,0,0,0.7),
+    0 0 60px rgba(79,110,247,0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.phone-bezel::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 42px;
+  border: 1px solid rgba(255,255,255,0.05);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Dynamic Island */
+.phone-island {
+  width: 100px;
+  height: 28px;
+  background: #000;
+  border-radius: 20px;
+  margin: 10px auto 0;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* Status Bar */
+.phone-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 20px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+}
+
+.phone-time {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.phone-status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-primary);
+}
+
+/* Battery icon */
+.phone-battery {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+.phone-battery-body {
+  width: 22px;
+  height: 10px;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+  padding: 1px;
+  position: relative;
+}
+.phone-battery-fill {
+  width: 75%;
+  height: 100%;
+  background: var(--color-success);
+  border-radius: 1px;
+}
+.phone-battery-cap {
+  width: 2px;
+  height: 5px;
+  background: currentColor;
+  border-radius: 0 1px 1px 0;
+  opacity: 0.4;
+}
+
+/* App Header */
+.phone-app-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-5) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-primary);
+}
+
+.phone-app-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.phone-app-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-app-name {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.phone-app-status {
+  font-size: 11px;
+  color: var(--color-success);
+  font-weight: 500;
+}
+
+/* Screen Content */
+.phone-screen {
+  flex: 1;
+  min-height: 380px;
+  max-height: 440px;
+  overflow-y: auto;
+  background: var(--color-bg-primary);
+  border-radius: 0 0 38px 38px;
+}
+
+/* Home Indicator */
+.phone-home-bar {
+  width: 120px;
+  height: 4px;
+  background: var(--color-text-primary);
+  opacity: 0.2;
+  border-radius: 2px;
+  margin: 8px auto 10px;
+}
+
+/* ---- SMS Bubbles (inside phone) ---- */
+.sms-chat {
+  padding: var(--space-4);
+  min-height: 360px;
+  max-height: 420px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.sms-bubble {
+  padding: var(--space-3) var(--space-4);
+  border-radius: 18px;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  max-width: 85%;
+}
+.sms-bubble.assistant {
+  background: rgba(79,110,247,0.15);
+  color: var(--color-text-primary);
+  border: 1px solid rgba(79,110,247,0.1);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.sms-bubble.user {
+  background: rgba(255,255,255,0.08);
+  color: var(--color-text-secondary);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+.sms-typing {
+  display: flex;
+  gap: 4px;
+  padding: var(--space-3) var(--space-4);
+  align-self: flex-start;
+}
+.sms-typing span {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.sms-typing span:nth-child(2) { animation-delay: 0.2s; }
+.sms-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+/* ---- Owner Notification (inside phone) ---- */
+.notify-content {
+  padding: var(--space-4);
+}
+
+.notify-header-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: rgba(79,110,247,0.08);
+  border: 1px solid rgba(79,110,247,0.12);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-4);
+}
+
+.notify-bell {
+  font-size: 1.5rem;
+}
+
+.notify-alert-title {
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.notify-alert-sub {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.notify-body-inner h4 {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+}
+
+.notify-detail {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.notify-detail strong {
+  color: var(--color-text-primary);
+}
+.notify-summary {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  background: rgba(255,255,255,0.03);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* ---- Demo Complete ---- */
+.demo-complete-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-4);
+}
+.demo-complete-text {
+  color: var(--color-text-secondary);
+  max-width: 400px;
+  margin: 0 auto var(--space-8);
+  line-height: 1.7;
+}
+.demo-complete-actions {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---- Glow Button ---- */
+.glow-button {
+  box-shadow: 0 4px 20px rgba(79,110,247,0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.glow-button::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-20deg);
+  animation: shimmer 3s infinite;
+}
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+.glow-button:hover {
+  box-shadow: 0 6px 30px rgba(79,110,247,0.5);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .demo-stage { padding: var(--space-4); }
+  .demo-card { padding: var(--space-5); }
+  .demo-nav { flex-wrap: wrap; gap: var(--space-3); justify-content: center; }
+  .phone-frame { max-width: 100%; }
+  .phone-bezel { border-radius: 30px; }
+}
+
+/* ============================================
+   SPLIT SCREEN CUSTOMER FORM
+   ============================================ */
+.cf-split-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-8);
+  align-items: stretch;
+}
+
+/* Left Pitch */
+.cf-left-pitch {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: var(--space-6);
+}
+
+.pitch-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.pitch-header h2 {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.rating-badge {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: var(--space-4);
+}
+
+.rating-badge .stars {
+  font-size: 1rem;
+}
+
+.rating-badge .rating-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.pitch-headline {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: var(--space-2);
+  background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+.pitch-subhead {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+}
+
+.pitch-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-8) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.pitch-bullets li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.pitch-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: auto;
+}
+
+.guarantee-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(79, 110, 247, 0.1);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guarantee-title {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.guarantee-desc {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+/* Right Form */
+.cf-right-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cf-right-form .cf-body {
+  background: rgba(255, 255, 255, 0.02);
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+@media (max-width: 768px) {
+  .cf-split-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  .cf-left-pitch {
+    padding-right: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-6);
+  }
+  .pitch-headline {
+    font-size: 1.5rem;
+  }
+}

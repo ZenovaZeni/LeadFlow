@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "brand-indigo": "#4F46E5",
+            "surface-bright": "#1f2b49",
+            "primary-dim": "#4F46E5",
+            "on-secondary": "#280067",
+            "on-background": "#dee5ff",
+            "surface-container-low": "#091328",
+            "surface-dim": "#060e20",
+            "on-surface": "#dee5ff",
+            "on-tertiary": "#701455",
+            "background": "#060e20",
+            "tertiary-fixed-dim": "#ef81c4",
+            "tertiary": "#ffa5d9",
+            "primary-fixed": "#818cf8",
+            "surface-container-high": "#141f38",
+            "primary": "#818cf8",
+            "error-container": "#a70138",
+            "on-tertiary-container": "#63054a",
+            "on-secondary-fixed-variant": "#5f28c8",
+            "secondary-fixed-dim": "#ceb9ff",
+            "inverse-primary": "#4338ca",
+            "on-primary-fixed": "#000000",
+            "secondary-dim": "#8455ef",
+            "on-surface-variant": "#a3aac4",
+            "secondary-fixed": "#dac9ff",
+            "on-primary-container": "#ffffff",
+            "surface": "#060e20",
+            "surface-container-lowest": "#000000",
+            "inverse-on-surface": "#4d556b",
+            "on-secondary-container": "#d9c8ff",
+            "surface-container-highest": "#192540",
+            "on-secondary-fixed": "#40009b",
+            "secondary-container": "#5516be",
+            "error-dim": "#d73357",
+            "on-error-container": "#ffb2b9",
+            "surface-tint": "#818cf8",
+            "on-tertiary-fixed": "#3b002b",
+            "tertiary-fixed": "#ff8ed2",
+            "surface-variant": "#192540",
+            "on-tertiary-fixed-variant": "#6e1354",
+            "error": "#ff6e84",
+            "outline-variant": "#40485d",
+            "on-primary": "#ffffff",
+            "secondary": "#818cf8",
+            "on-error": "#490013",
+            "primary-container": "#4F46E5",
+            "outline": "#6d758c",
+            "inverse-surface": "#faf8ff",
+            "tertiary-container": "#ff8ed2",
+            "primary-fixed-dim": "#6366f1",
+            "tertiary-dim": "#ef81c4",
+            "surface-container": "#0f1930",
+            "on-primary-fixed-variant": "#e0e7ff"
+          },
+          fontFamily: {
+            "headline": ["Manrope"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-card {
+      background: rgba(25, 37, 64, 0.4);
+      backdrop-filter: blur(16px);
+      box-shadow: inset 0 1px 1px 0 rgba(79, 70, 229, 0.1);
+    }
+    .active-glow {
+      box-shadow: 0 0 20px -5px rgba(79, 70, 229, 0.4);
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+      background: #40485d;
+      height: 6px;
+      border-radius: 3px;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 20px;
+      width: 20px;
+      background: #4F46E5;
+      border-radius: 50%;
+      margin-top: -7px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen pb-32">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#091328] shadow-[0_1px_0_0_rgba(255,255,255,0.05)] flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-indigo text-2xl" data-icon="bubble_chart">bubble_chart</span>
+<h1 class="font-manrope text-lg tracking-tight text-2xl font-bold bg-gradient-to-br from-indigo-400 to-blue-500 bg-clip-text text-transparent">LeadFlow</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex gap-6 mr-6">
+<a class="text-slate-400 hover:text-brand-indigo transition-colors duration-300 font-manrope text-sm font-semibold uppercase tracking-widest" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-brand-indigo transition-colors duration-300 font-manrope text-sm font-semibold uppercase tracking-widest" href="#">Leads</a>
+<a class="text-brand-indigo hover:text-brand-indigo transition-colors duration-300 font-manrope text-sm font-semibold uppercase tracking-widest" href="#">Rules</a>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant/20 flex items-center justify-center overflow-hidden">
+<img alt="User profile avatar" data-alt="Close-up portrait of a professional male executive with a confident smile in soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZkr1OabHDLHQwY55FEyoF_J_uZqfbPaC5h1-9DaCjIcLJuG6y1DvNCBC9wdfc4559lEtdilp7uuRM6Rx2scPSFaWxWJMDHtMTTnmQwTpCnYfqITH14YAt16D2z7I5LCrBQhCIE6AJd9CND-dVedzxrVXGt5s62fezfsRw0chlW0PPxA2Qi-77GVKEM4rZ6nYozm1pi3vYeHy2G_zvoeEBJN3ynCnjdLkB4PujpZAVKcAR1EbBY6augc82y8t8yeARno_tkaTCLbrh"/>
+</div>
+</div>
+</nav>
+<main class="max-w-7xl mx-auto px-6 pt-24 space-y-12">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row justify-between items-end gap-6">
+<div class="space-y-2">
+<span class="text-brand-indigo font-manrope font-bold tracking-[0.2em] text-xs uppercase">Automation Hub</span>
+<h2 class="text-4xl md:text-5xl font-headline font-extrabold tracking-tight text-on-surface">AI Training &amp; Rules</h2>
+<p class="text-on-surface-variant max-w-xl text-lg">Define how your virtual assistant interacts with incoming leads to maximize conversion through precision training.</p>
+</div>
+<button class="bg-brand-indigo text-white px-8 py-3 rounded-xl font-manrope font-bold text-sm tracking-wide shadow-lg active:scale-95 transition-transform">
+        Publish Changes
+      </button>
+</header>
+<!-- Main Content Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Core Controls -->
+<div class="lg:col-span-5 space-y-8">
+<!-- Missed Call Text-Back -->
+<div class="glass-card rounded-2xl p-8 border border-outline-variant/10">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-indigo" data-icon="phone_missed">phone_missed</span>
+<h3 class="font-headline text-xl font-bold">Missed Call Text-Back</h3>
+</div>
+<div class="w-12 h-6 bg-brand-indigo rounded-full relative cursor-pointer active-glow">
+<div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+</div>
+</div>
+<div class="space-y-4">
+<label class="text-xs font-bold text-outline uppercase tracking-widest">Auto-Reply Template</label>
+<textarea class="w-full bg-surface-container-low/50 border border-outline-variant/20 rounded-xl p-4 text-sm text-on-surface focus:ring-1 focus:ring-brand-indigo focus:border-brand-indigo transition-all resize-none" rows="3">Hi! Sorry I missed your call. This is LeadFlow AI — how can we help you today?</textarea>
+<p class="text-[10px] text-on-surface-variant italic">Tip: Use natural language to keep engagement high.</p>
+</div>
+</div>
+<!-- AI Personality -->
+<div class="glass-card rounded-2xl p-8 border border-outline-variant/10">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-brand-indigo" data-icon="psychology">psychology</span>
+<h3 class="font-headline text-xl font-bold">AI Personality</h3>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 rounded-xl bg-surface-container-low border-2 border-brand-indigo cursor-pointer hover:bg-surface-container-high transition-colors text-center">
+<span class="block font-bold text-sm mb-1 text-on-surface">Friendly &amp; Casual</span>
+<span class="block text-[10px] text-on-surface-variant">Approachable &amp; upbeat tone</span>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/10 cursor-pointer hover:bg-surface-container-high transition-colors text-center">
+<span class="block font-bold text-sm mb-1 text-on-surface-variant">Professional &amp; Direct</span>
+<span class="block text-[10px] text-on-surface-variant">Formal &amp; efficiency focused</span>
+</div>
+</div>
+</div>
+<!-- Safety Controls -->
+<div class="glass-card rounded-2xl p-8 border border-outline-variant/10">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-error" data-icon="shield">shield</span>
+<h3 class="font-headline text-xl font-bold">Advanced Safety</h3>
+</div>
+<div class="space-y-8">
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<div class="space-y-1">
+<span class="block font-semibold text-on-surface text-sm">Text Grouping Delay</span>
+<span class="block text-xs text-on-surface-variant">Wait time before AI sends response batch.</span>
+</div>
+<span class="text-brand-indigo font-bold">15s</span>
+</div>
+<input class="w-full" max="30" min="5" step="1" type="range" value="15"/>
+<div class="flex justify-between text-[10px] text-outline font-bold uppercase">
+<span>5s</span>
+<span>30s</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 rounded-xl bg-surface-container-low/50 border border-outline-variant/10">
+<div class="space-y-1">
+<span class="block font-semibold text-on-surface text-sm">AI Accuracy Alert</span>
+<span class="block text-xs text-on-surface-variant">Notify owner if confidence &lt; 85%.</span>
+</div>
+<div class="w-10 h-5 bg-brand-indigo rounded-full relative cursor-pointer">
+<div class="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: FAQ & Automation Flow -->
+<div class="lg:col-span-7 space-y-8">
+<!-- FAQ Section -->
+<div class="glass-card rounded-2xl p-8 border border-outline-variant/10 relative overflow-hidden">
+<div class="absolute -right-12 -top-12 w-32 h-32 bg-brand-indigo/10 blur-[60px] rounded-full"></div>
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-indigo" data-icon="menu_book">menu_book</span>
+<h3 class="font-headline text-xl font-bold">FAQ Database</h3>
+</div>
+<button class="text-xs font-bold text-brand-indigo hover:text-white transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+          Add Entry
+        </button>
+</div>
+<div class="space-y-4">
+<div class="group relative p-4 bg-surface-container-high/40 rounded-xl space-y-2 border-l-2 border-brand-indigo hover:bg-surface-container-high/60 transition-colors">
+<div class="flex justify-between items-start">
+<p class="text-xs font-bold text-brand-indigo uppercase tracking-widest">Question</p>
+<span class="material-symbols-outlined text-outline text-sm opacity-0 group-hover:opacity-100 cursor-pointer hover:text-error transition-all" data-icon="delete">delete</span>
+</div>
+<p class="text-sm font-medium">Do you offer weekend appointments?</p>
+<div class="pt-2 border-t border-outline-variant/10">
+<p class="text-xs text-on-surface-variant leading-relaxed">"Yes, we operate on Saturdays from 9 AM to 2 PM for premium consultations."</p>
+</div>
+</div>
+<div class="group relative p-4 bg-surface-container-high/40 rounded-xl space-y-2 border-l-2 border-brand-indigo hover:bg-surface-container-high/60 transition-colors">
+<div class="flex justify-between items-start">
+<p class="text-xs font-bold text-brand-indigo uppercase tracking-widest">Question</p>
+<span class="material-symbols-outlined text-outline text-sm opacity-0 group-hover:opacity-100 cursor-pointer hover:text-error transition-all" data-icon="delete">delete</span>
+</div>
+<p class="text-sm font-medium">What is your service area?</p>
+<div class="pt-2 border-t border-outline-variant/10">
+<p class="text-xs text-on-surface-variant leading-relaxed">"We cover the entire Greater Metro area including North and West suburbs."</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Automation Script -->
+<div class="glass-card rounded-2xl p-8 border border-outline-variant/10">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-indigo" data-icon="quiz">quiz</span>
+<h3 class="font-headline text-2xl font-bold tracking-tight">Automation Script</h3>
+</div>
+<span class="px-3 py-1 bg-brand-indigo/10 text-brand-indigo text-[10px] font-bold rounded-full uppercase tracking-tighter">4 Active Questions</span>
+</div>
+<div class="space-y-4">
+<!-- Question Item 1 -->
+<div class="group relative bg-surface-container-low rounded-2xl p-5 border border-outline-variant/5 hover:border-brand-indigo/30 transition-all">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center font-headline font-bold text-brand-indigo text-xs">01</div>
+<div class="flex-1 flex items-center justify-between">
+<span class="text-sm font-medium text-on-surface">Estimated project budget?</span>
+<div class="flex items-center gap-3">
+<div class="w-8 h-4 bg-brand-indigo rounded-full relative cursor-pointer">
+<div class="absolute right-0.5 top-0.5 w-3 h-3 bg-white rounded-full"></div>
+</div>
+<span class="material-symbols-outlined text-outline text-lg cursor-pointer hover:text-brand-indigo transition-colors" data-icon="edit">edit</span>
+<span class="material-symbols-outlined text-outline text-lg cursor-pointer hover:text-error transition-colors" data-icon="delete">delete</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Question Item 2 -->
+<div class="group relative bg-surface-container-low rounded-2xl p-5 border border-outline-variant/5 hover:border-brand-indigo/30 transition-all">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center font-headline font-bold text-brand-indigo text-xs">02</div>
+<div class="flex-1 flex items-center justify-between">
+<span class="text-sm font-medium text-on-surface">Service completion deadline?</span>
+<div class="flex items-center gap-3">
+<div class="w-8 h-4 bg-brand-indigo rounded-full relative cursor-pointer">
+<div class="absolute right-0.5 top-0.5 w-3 h-3 bg-white rounded-full"></div>
+</div>
+<span class="material-symbols-outlined text-outline text-lg cursor-pointer hover:text-brand-indigo transition-colors" data-icon="edit">edit</span>
+<span class="material-symbols-outlined text-outline text-lg cursor-pointer hover:text-error transition-colors" data-icon="delete">delete</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Add Question Button -->
+<button class="w-full py-4 border-2 border-dashed border-outline-variant/30 rounded-2xl hover:border-brand-indigo/50 hover:bg-brand-indigo/5 transition-all group">
+<div class="flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-outline group-hover:text-brand-indigo text-lg" data-icon="add_circle">add_circle</span>
+<span class="text-xs font-bold text-outline group-hover:text-on-surface uppercase tracking-widest">Append Metric</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Preview Simulation -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mt-12">
+<div class="lg:col-span-5 hidden lg:block">
+<div class="w-full h-[600px] bg-gradient-to-t from-[#060e20] to-[#141f38] rounded-[3rem] border-8 border-[#1f2b49] shadow-2xl relative overflow-hidden">
+<div class="absolute top-0 w-1/3 h-6 bg-[#1f2b49] left-1/2 -translate-x-1/2 rounded-b-2xl z-10"></div>
+<!-- Mock Chat Interface -->
+<div class="p-6 pt-12 flex flex-col h-full">
+<div class="flex-1 space-y-6">
+<div class="flex items-center gap-2 mb-4">
+<div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">AI Assistant Live</span>
+</div>
+<div class="bg-surface-container-high rounded-2xl rounded-bl-none p-4 max-w-[85%]">
+<p class="text-sm text-on-surface">Hi there! Thanks for reaching out. To help us serve you better, what is your estimated project budget?</p>
+</div>
+<div class="bg-brand-indigo rounded-2xl rounded-br-none p-4 max-w-[85%] self-end ml-auto">
+<p class="text-sm text-white">Probably around $5,000 to $8,000 range.</p>
+</div>
+<div class="bg-surface-container-high rounded-2xl rounded-bl-none p-4 max-w-[85%]">
+<p class="text-sm text-on-surface">Great! And when do you need this completed by?</p>
+</div>
+</div>
+<div class="mt-auto border-t border-outline-variant/20 pt-4">
+<div class="bg-surface-container/60 rounded-full px-4 py-2 flex items-center justify-between">
+<span class="text-[10px] text-on-surface-variant">Type a response...</span>
+<span class="material-symbols-outlined text-brand-indigo text-sm" data-icon="send">send</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-7 space-y-6">
+<h3 class="font-headline text-3xl font-bold text-on-surface">Dynamic Preview</h3>
+<p class="text-on-surface-variant text-lg leading-relaxed">Visualize how your rules impact lead interaction in real-time. Our AI engine processes your constraints to create natural, high-conversion conversations.</p>
+<ul class="space-y-4 pt-4">
+<li class="flex items-center gap-4 text-on-surface font-medium">
+<span class="material-symbols-outlined text-brand-indigo" data-icon="check_circle">check_circle</span>
+            Instant context awareness from your FAQ
+          </li>
+<li class="flex items-center gap-4 text-on-surface font-medium">
+<span class="material-symbols-outlined text-brand-indigo" data-icon="check_circle">check_circle</span>
+            Automatic sentiment analysis during qualification
+          </li>
+<li class="flex items-center gap-4 text-on-surface font-medium">
+<span class="material-symbols-outlined text-brand-indigo" data-icon="check_circle">check_circle</span>
+            Direct calendar integration for high-intent leads
+          </li>
+</ul>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<footer class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-2 bg-[#091328]/80 backdrop-blur-xl border-t border-brand-indigo/10 shadow-[0_-8px_32px_rgba(0,0,0,0.5)] z-50 rounded-t-2xl md:hidden">
+<div class="flex flex-col items-center justify-center text-slate-500 py-2 px-4 hover:text-brand-indigo transition-all tap-highlight-none active:scale-95">
+<span class="material-symbols-outlined mb-1" data-icon="dashboard">dashboard</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-widest">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 py-2 px-4 hover:text-brand-indigo transition-all tap-highlight-none active:scale-95">
+<span class="material-symbols-outlined mb-1" data-icon="group">group</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-widest">Leads</span>
+</div>
+<div class="flex flex-col items-center justify-center text-brand-indigo bg-brand-indigo/10 rounded-xl py-2 px-4 hover:text-brand-indigo transition-all tap-highlight-none active:scale-95">
+<span class="material-symbols-outlined mb-1" data-icon="bolt">bolt</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-widest">Rules</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 py-2 px-4 hover:text-brand-indigo transition-all tap-highlight-none active:scale-95">
+<span class="material-symbols-outlined mb-1" data-icon="settings">settings</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-widest">Settings</span>
+</div>
+</footer>
+</body></html>

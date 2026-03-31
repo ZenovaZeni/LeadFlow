@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LeadFlow Revenue Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed": "#ffffff",
+              "secondary": "#818cf8",
+              "primary-fixed": "#4f46e5",
+              "on-background": "#dee5ff",
+              "on-tertiary-fixed-variant": "#6e1354",
+              "surface-tint": "#4f46e5",
+              "surface-container": "#0f1930",
+              "on-primary-container": "#ffffff",
+              "secondary-container": "#4338ca",
+              "primary": "#4f46e5",
+              "surface-dim": "#060e20",
+              "surface-container-lowest": "#000000",
+              "primary-fixed-dim": "#4338ca",
+              "on-surface": "#dee5ff",
+              "primary-dim": "#4338ca",
+              "tertiary-fixed": "#ff8ed2",
+              "on-primary": "#ffffff",
+              "error-dim": "#d73357",
+              "surface-container-highest": "#192540",
+              "on-secondary-fixed-variant": "#3730a3",
+              "inverse-on-surface": "#4d556b",
+              "on-tertiary-fixed": "#3b002b",
+              "on-error": "#490013",
+              "on-secondary": "#ffffff",
+              "primary-container": "#4f46e5",
+              "outline": "#6d758c",
+              "tertiary-dim": "#ef81c4",
+              "on-surface-variant": "#a3aac4",
+              "on-tertiary": "#701455",
+              "on-secondary-container": "#e0e7ff",
+              "tertiary": "#ffa5d9",
+              "surface-variant": "#192540",
+              "on-tertiary-container": "#63054a",
+              "error-container": "#a70138",
+              "secondary-fixed-dim": "#c7d2fe",
+              "inverse-surface": "#faf8ff",
+              "tertiary-fixed-dim": "#ef81c4",
+              "surface-container-low": "#091328",
+              "surface": "#060e20",
+              "secondary-dim": "#6366f1",
+              "background": "#060e20",
+              "surface-container-high": "#141f38",
+              "on-error-container": "#ffb2b9",
+              "on-primary-fixed-variant": "#312e81",
+              "inverse-primary": "#4f46e5",
+              "outline-variant": "#40485d",
+              "secondary-fixed": "#e0e7ff",
+              "on-secondary-fixed": "#312e81",
+              "tertiary-container": "#ff8ed2",
+              "surface-bright": "#1f2b49",
+              "error": "#ff6e84"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-transition {
+            background: linear-gradient(180deg, rgba(9, 19, 40, 0.8) 0%, rgba(6, 14, 32, 0.8) 100%);
+        }
+        .glass-card {
+            background: rgba(25, 37, 64, 0.4);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(79, 70, 229, 0.1);
+        }
+        .luxury-gap {
+            gap: 3rem;
+        }
+        .pulse-live {
+            box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(79, 70, 229, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(79, 70, 229, 0.2);
+            border-radius: 10px;
+        }
+        .chart-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 3s ease-in-out forwards;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: 0; }
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#060e20]/80 backdrop-blur-xl shadow-2xl shadow-indigo-900/20">
+<div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-indigo-500 text-2xl" data-icon="bubble_chart">bubble_chart</span>
+<span class="text-2xl font-black bg-gradient-to-r from-[#4F46E5] to-[#4338ca] bg-clip-text text-transparent font-headline tracking-tight">LeadFlow</span>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-indigo-500 font-semibold font-manrope" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-indigo-400 transition-colors font-manrope" href="#">Leads</a>
+<a class="text-slate-400 hover:text-indigo-400 transition-colors font-manrope" href="#">Automations</a>
+<a class="text-slate-400 hover:text-indigo-400 transition-colors font-manrope" href="#">Settings</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex flex-col items-end mr-2">
+<span class="text-xs text-slate-400">Live Status</span>
+<span class="text-xs font-bold text-indigo-400 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-indigo-500 pulse-live"></span>
+                    SYSTEM ACTIVE
+                </span>
+</div>
+<img alt="User Profile Avatar" class="w-10 h-10 rounded-full border-2 border-primary/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnztuREIh9Sw-8JwM7NVypP_ke_TttWQmcEOCt1LDNqjmHqYGFqoadSAtRs-hjwJuUQEEVvi81KUdZ7P0tbA4YrGTXNzbvbRJsp9DWqvxERrBQuqXJW5zNXm8s4QprJ4gplolgRe6JAG9scTwnq40FZkSMBBqEe5ocdUMQGjza1_kDXGeCweEWtwUGLAB39-_6Ky8T56fNlXe3gltwbmYBZS2UEfxmWj2r3JnU-bzu2zuxz0dN9L2XycCYPoRdCSZcSSEZsXNzCMCN"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto flex flex-col luxury-gap">
+<!-- 6 Stat Cards per PRD -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+<!-- Stat Card 1 -->
+<div class="glass-card p-5 rounded-3xl flex flex-col justify-between group hover:surface-container-highest transition-all">
+<span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest font-label">Leads Captured</span>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="text-3xl font-headline font-extrabold text-primary">1,284</span>
+<span class="text-secondary text-xs font-bold">+12%</span>
+</div>
+<div class="w-full h-1 bg-white/5 mt-3 rounded-full overflow-hidden">
+<div class="h-full w-[70%] bg-primary shadow-[0_0_8px_rgba(79,70,229,0.5)]"></div>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="glass-card p-5 rounded-3xl flex flex-col justify-between group hover:surface-container-highest transition-all">
+<span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest font-label">Avg Response</span>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="text-3xl font-headline font-extrabold text-white">24<span class="text-base font-medium text-slate-500 ml-1">s</span></span>
+<span class="text-error text-xs font-bold">-4s</span>
+</div>
+<div class="mt-2 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-xs" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="text-[9px] text-slate-400">Target: &lt; 30s</span>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="glass-card p-5 rounded-3xl flex flex-col justify-between group hover:surface-container-highest transition-all">
+<span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest font-label">Jobs Booked</span>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="text-3xl font-headline font-extrabold text-white">342</span>
+<span class="text-secondary text-xs font-bold">88%</span>
+</div>
+<span class="text-[9px] text-slate-500 mt-2 italic">Performance peak</span>
+</div>
+<!-- Stat Card 4 -->
+<div class="glass-card p-5 rounded-3xl flex flex-col justify-between group hover:surface-container-highest transition-all border-error/20">
+<span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest font-label">Leads Waiting</span>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="text-3xl font-headline font-extrabold text-error">8</span>
+</div>
+<div class="mt-2 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error pulse-live"></span>
+<span class="text-[9px] text-slate-400">Requires Action</span>
+</div>
+</div>
+<!-- Stat Card 5 -->
+<div class="glass-card p-5 rounded-3xl flex flex-col justify-between group hover:surface-container-highest transition-all">
+<span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest font-label">Est. Revenue</span>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="text-3xl font-headline font-extrabold text-white">$84k</span>
+</div>
+<div class="mt-2 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+<span class="text-[9px] text-slate-400">Projected: $110k</span>
+</div>
+</div>
+<!-- Stat Card 6 -->
+<div class="glass-card p-5 rounded-3xl flex flex-col justify-between group hover:surface-container-highest transition-all border-indigo-500/30">
+<span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest font-label">Hours Saved</span>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="text-3xl font-headline font-extrabold bg-gradient-to-br from-indigo-300 to-indigo-600 bg-clip-text text-transparent">156</span>
+</div>
+<div class="mt-2 py-0.5 px-2 bg-indigo-500/10 rounded-full w-fit">
+<span class="text-[9px] text-indigo-400 font-bold">AI Efficiency</span>
+</div>
+</div>
+</section>
+<!-- Bento Grid: Interactive Chart & Scrolling Feed -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Refined Revenue Trend Chart -->
+<div class="lg:col-span-2 bg-surface-container-low rounded-[2rem] p-8 relative overflow-hidden">
+<div class="flex flex-col md:flex-row justify-between items-start mb-12 gap-4">
+<div>
+<h2 class="text-2xl font-headline font-extrabold text-white tracking-tight">Revenue Intelligence</h2>
+<p class="text-slate-500 text-sm">Leads vs. Bookings performance (7 days)</p>
+</div>
+<div class="flex gap-4">
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-lg border border-white/5 hover:bg-surface-container-high transition-colors">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-xs text-slate-300">Leads</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-lg border border-white/5 hover:bg-surface-container-high transition-colors">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="text-xs text-slate-300">Bookings</span>
+</button>
+</div>
+</div>
+<!-- Interactive Smooth SVG Chart -->
+<div class="w-full h-72 relative group">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 300">
+<defs>
+<lineargradient id="grad-leads" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#4F46E5;stop-opacity:0.2"></stop>
+<stop offset="100%" style="stop-color:#4F46E5;stop-opacity:0"></stop>
+</lineargradient>
+<lineargradient id="grad-bookings" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#818cf8;stop-opacity:0.2"></stop>
+<stop offset="100%" style="stop-color:#818cf8;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Lines -->
+<g stroke="white" stroke-opacity="0.05">
+<line x1="0" x2="1000" y1="0" y2="0"></line>
+<line x1="0" x2="1000" y1="75" y2="75"></line>
+<line x1="0" x2="1000" y1="150" y2="150"></line>
+<line x1="0" x2="1000" y1="225" y2="225"></line>
+<line x1="0" x2="1000" y1="300" y2="300"></line>
+</g>
+<!-- Leads Path (Smooth Cubic Bezier) -->
+<path class="chart-path" d="M0,240 C100,220 200,280 300,120 C400,60 500,180 600,160 C700,140 850,20 1000,50" fill="none" stroke="#4F46E5" stroke-width="4"></path>
+<path d="M0,240 C100,220 200,280 300,120 C400,60 500,180 600,160 C700,140 850,20 1000,50 V300 H0 Z" fill="url(#grad-leads)"></path>
+<!-- Bookings Path (Smooth Cubic Bezier) -->
+<path class="chart-path" d="M0,280 C150,260 250,290 400,220 C500,180 650,230 800,160 C900,120 950,180 1000,170" fill="none" stroke="#818cf8" stroke-dasharray="8,4" stroke-width="4"></path>
+<path d="M0,280 C150,260 250,290 400,220 C500,180 650,230 800,160 C900,120 950,180 1000,170 V300 H0 Z" fill="url(#grad-bookings)"></path>
+<!-- Hover Tooltip Line (Simulated) -->
+<line class="opacity-0 group-hover:opacity-100 transition-opacity" stroke="#ffffff" stroke-dasharray="4" stroke-width="1" x1="400" x2="400" y1="0" y2="300"></line>
+</svg>
+<!-- Tooltip Overlay (Example) -->
+<div class="absolute top-10 left-[38%] hidden group-hover:block bg-surface-container-highest border border-white/10 p-3 rounded-xl shadow-2xl z-10">
+<p class="text-[10px] text-slate-500 font-bold mb-1">THURSDAY</p>
+<div class="flex items-center gap-4">
+<div>
+<span class="text-[10px] text-primary">Leads</span>
+<p class="text-sm font-bold text-white">42</p>
+</div>
+<div class="w-[1px] h-6 bg-white/10"></div>
+<div>
+<span class="text-[10px] text-secondary">Bookings</span>
+<p class="text-sm font-bold text-white">18</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-between px-2 mt-6">
+<span class="text-[10px] text-slate-600 font-bold">MON</span>
+<span class="text-[10px] text-slate-600 font-bold">TUE</span>
+<span class="text-[10px] text-slate-600 font-bold">WED</span>
+<span class="text-[10px] text-slate-600 font-bold">THU</span>
+<span class="text-[10px] text-slate-600 font-bold">FRI</span>
+<span class="text-[10px] text-slate-600 font-bold">SAT</span>
+<span class="text-[10px] text-slate-600 font-bold">SUN</span>
+</div>
+</div>
+<!-- Scrolling Live Activity Feed -->
+<div class="bg-surface-container-low rounded-[2rem] p-8 flex flex-col h-full max-h-[500px] lg:max-h-none">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-lg font-headline font-bold text-white tracking-tight">Live Activity</h2>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary pulse-live"></span>
+<span class="text-secondary text-[10px] font-black uppercase tracking-tighter">Streaming</span>
+</div>
+</div>
+<div class="space-y-6 flex-1 overflow-y-auto pr-4 custom-scrollbar">
+<!-- Activity Item 1 -->
+<div class="flex gap-4 items-start relative pb-6 border-l border-white/5 ml-3 pl-6">
+<div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary/20 flex items-center justify-center shrink-0 border border-primary/40">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="text-sm text-on-surface font-medium leading-tight">AI answered question</p>
+<span class="text-[9px] text-slate-500 whitespace-nowrap">Just now</span>
+</div>
+<p class="text-[10px] text-indigo-400 mt-1">Marcus J. asked about weekend availability</p>
+<div class="mt-2 p-3 bg-surface-container-highest/30 rounded-xl text-[11px] text-slate-400 italic">
+                            "System: Yes, we offer emergency services on Saturdays..."
+                        </div>
+</div>
+</div>
+<!-- Activity Item 2 -->
+<div class="flex gap-4 items-start relative pb-6 border-l border-white/5 ml-3 pl-6">
+<div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0 border border-emerald-500/40">
+<span class="material-symbols-outlined text-[10px] text-emerald-400" data-icon="person_add">person_add</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="text-sm text-on-surface font-medium leading-tight">New Lead Captured</p>
+<span class="text-[9px] text-slate-500 whitespace-nowrap">4m ago</span>
+</div>
+<p class="text-[10px] text-slate-500">Sarah Chen • Website Form</p>
+</div>
+</div>
+<!-- Activity Item 3 -->
+<div class="flex gap-4 items-start relative pb-6 border-l border-white/5 ml-3 pl-6">
+<div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-secondary/20 flex items-center justify-center shrink-0 border border-secondary/40">
+<span class="material-symbols-outlined text-[10px] text-secondary" data-icon="forum">forum</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="text-sm text-on-surface font-medium leading-tight">Customer replied</p>
+<span class="text-[9px] text-slate-500 whitespace-nowrap">12m ago</span>
+</div>
+<p class="text-[10px] text-slate-500">David Miller • SMS Thread</p>
+<div class="mt-2 p-3 bg-surface-container-highest/30 rounded-xl text-[11px] text-slate-400 italic">
+                            "I need someone to come out today if possible..."
+                        </div>
+</div>
+</div>
+<!-- Activity Item 4 -->
+<div class="flex gap-4 items-start relative pb-6 border-l border-white/5 ml-3 pl-6">
+<div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white/5 flex items-center justify-center shrink-0 border border-white/10">
+<span class="material-symbols-outlined text-[10px] text-slate-500" data-icon="history">history</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="text-sm text-on-surface font-medium leading-tight">Daily Audit Complete</p>
+<span class="text-[9px] text-slate-500 whitespace-nowrap">1h ago</span>
+</div>
+<p class="text-[10px] text-slate-500">AI Accuracy: 99.4% • 12 flagged</p>
+</div>
+</div>
+</div>
+<button class="mt-4 w-full py-2 bg-white/5 hover:bg-white/10 rounded-xl text-[10px] font-bold text-slate-400 uppercase tracking-widest transition-colors">Load More History</button>
+</div>
+</section>
+<!-- Lead Management Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Action Required / List -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h2 class="text-xl font-headline font-extrabold text-white flex items-center gap-2">
+                    Action Required
+                    <span class="bg-error-container text-on-error-container text-[10px] px-2 py-0.5 rounded-full">3</span>
+</h2>
+<button class="text-xs text-indigo-400 font-bold hover:underline">View All</button>
+</div>
+<div class="space-y-4">
+<!-- Urgent Lead 1 -->
+<div class="bg-surface-container rounded-2xl p-5 border-l-4 border-error shadow-lg cursor-pointer hover:bg-surface-container-high transition-colors group">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<img alt="Lead Avatar" class="w-10 h-10 rounded-full bg-slate-800 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5AOpwZDjEBfwZKGrjfeQGyVCgXyhC0V56fx70gH4oDBSXX434BZQV2jpmBeJhFjmmwV1FCpYt9Ao-raaspvmBUZdBIRZv5csg9n-EYUQREn6nKRzYf7Hx47trFmLjTYEmt-TZmTwsGH7C7vA92BGLaYghCFW4CcYAmRRQyLqCyM-VJv4hIvkZuHLYNrFZ8cNqolAY0dflLCJ50Fdpfs2sY4SqOWiy-q8yyCuHzWgm5Nc0UPJGjU2qX2tsMRGY1NpBbOCpWgSHcEfh"/>
+<div>
+<h4 class="text-sm font-bold text-white group-hover:text-primary transition-colors">David Miller</h4>
+<span class="text-[10px] text-slate-500">Wait time: 14m</span>
+</div>
+</div>
+<span class="px-2 py-0.5 bg-error/10 text-error text-[9px] font-black rounded uppercase">Urgent</span>
+</div>
+<p class="mt-3 text-xs text-slate-300 line-clamp-1 italic">"I need someone to come out today if possible..."</p>
+</div>
+<!-- Lead 2 -->
+<div class="bg-surface-container/50 rounded-2xl p-5 hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<img alt="Lead Avatar" class="w-10 h-10 rounded-full bg-slate-800 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATXdHlcgFN4uGyzKyBi5gPcRUPEeLTdbt6Z_Wpcf-6cT7OoMTmYaC7sxF0-NCwU4XvoroYhzfUTUzeofW_NWIhPCBc51zMlaLmYbzlRNmn0fT_HVab4otRJ2ZkGv-B8cUeTOn3yDf57EZfUgkiK6ajCpjta0jChiYCRPfAxKr_NK5wHccVOfwVwVSdzTe9Om4HDvUzeJsxmjzWr5v2KKU7gNuC9mfCu6Rbxfw4ZXmXpMZZvKs_UTwqqgmLm9lv8HPuMQQb6kBBTAUI"/>
+<div>
+<h4 class="text-sm font-bold text-white group-hover:text-primary transition-colors">Elena Rodriguez</h4>
+<span class="text-[10px] text-slate-500">Wait time: 2h</span>
+</div>
+</div>
+<span class="px-2 py-0.5 bg-primary/10 text-primary text-[9px] font-black rounded uppercase">In Review</span>
+</div>
+</div>
+<!-- Lead 3 -->
+<div class="bg-surface-container/50 rounded-2xl p-5 hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center">
+<span class="text-xs font-bold text-indigo-400">BK</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-white group-hover:text-primary transition-colors">Brian Knight</h4>
+<span class="text-[10px] text-slate-500">Wait time: 5h</span>
+</div>
+</div>
+<span class="px-2 py-0.5 bg-slate-500/10 text-slate-400 text-[9px] font-black rounded uppercase">Paused</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Conversation Deep Dive -->
+<div class="lg:col-span-8 bg-surface-container rounded-[2.5rem] p-8 flex flex-col h-[700px] border border-white/5 shadow-2xl">
+<!-- Chat Header -->
+<div class="flex items-center justify-between pb-6 border-b border-white/5">
+<div class="flex items-center gap-4">
+<img alt="Active Lead" class="w-12 h-12 rounded-full border-2 border-error/30 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPG-vKGvQV3x2bI97Jbrq5kto5OlvMbNCOwgSzuumDSPdsERV3_U8mTkCvfQVcbAOm6enOWbp7mTwD1cke_nS38onDH3Ab84jDAGYdujuU-ksWZJuojyQqnU7Yy-z9KiLb4R3Cj55NVYlXPhGoFVGpgQpZ0d5f5HiLFrA7m9Kl_0lRD7L9WCp2Ugek3GfTdROeCIFcmm1bQEtrmITATRYgn97iK4GwtdEkV0ywdlpiIeUyVA0o15V_W2w_xPWB05q-SaIJI6YxcxHL"/>
+<div>
+<h3 class="text-lg font-headline font-extrabold text-white">David Miller</h3>
+<div class="flex items-center gap-2">
+<span class="text-[10px] text-slate-500">Project: Full Roof Replacement</span>
+<span class="text-[10px] text-indigo-400 font-bold">• SMS Interface</span>
+</div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="hidden sm:block px-5 py-2.5 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-bold transition-all text-slate-300">View Map</button>
+<button class="px-5 py-2.5 bg-primary text-on-primary-fixed rounded-xl text-xs font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-transform active:scale-95">Take Over</button>
+</div>
+</div>
+<!-- Chat Body -->
+<div class="flex-1 overflow-y-auto py-8 space-y-6 custom-scrollbar pr-4">
+<div class="flex justify-center">
+<span class="text-[10px] font-bold text-slate-600 uppercase tracking-widest px-3 py-1 bg-surface-dim rounded-full">Today</span>
+</div>
+<!-- Lead Message -->
+<div class="flex justify-start max-w-[85%]">
+<div class="bg-surface-container-high p-4 rounded-2xl rounded-tl-none border border-white/5">
+<p class="text-sm text-on-surface">Hi, I have a leak in my guest bedroom ceiling. Is there any way you can get a technician out today? It's raining tonight and I'm worried about damage.</p>
+<span class="text-[9px] text-slate-500 mt-2 block">10:42 AM</span>
+</div>
+</div>
+<!-- AI Message -->
+<div class="flex justify-end max-w-[85%] ml-auto">
+<div class="bg-secondary-container p-4 rounded-2xl rounded-tr-none text-on-secondary-container relative border border-secondary/20 shadow-xl">
+<span class="absolute -top-3 right-0 text-[8px] bg-secondary text-on-secondary-fixed px-1.5 py-0.5 rounded font-black uppercase">AI Agent</span>
+<p class="text-sm">I understand the urgency, David! Let me check our emergency schedule. Can you please confirm your address in East Riverside so I can find the closest tech?</p>
+<span class="text-[9px] opacity-70 mt-2 block">10:43 AM</span>
+</div>
+</div>
+<!-- Lead Message -->
+<div class="flex justify-start max-w-[85%]">
+<div class="bg-surface-container-high p-4 rounded-2xl rounded-tl-none border border-white/5">
+<p class="text-sm text-on-surface">Address is 442 Skyview Ln. Yes, Riverside. Please let me know ASAP.</p>
+<span class="text-[9px] text-slate-500 mt-2 block">10:45 AM</span>
+</div>
+</div>
+<!-- System Event -->
+<div class="flex justify-center">
+<div class="flex items-center gap-2 bg-indigo-500/5 px-4 py-1.5 rounded-full border border-indigo-500/10">
+<span class="w-1 h-1 rounded-full bg-indigo-400 animate-ping"></span>
+<span class="text-[10px] text-indigo-400 font-medium italic">AI is drafting a response...</span>
+</div>
+</div>
+</div>
+<!-- Chat Footer: Draft Box -->
+<div class="pt-6 border-t border-white/5">
+<div class="bg-surface-dim rounded-2xl p-2 flex items-end gap-2 border border-white/10 focus-within:border-primary/50 transition-colors">
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 text-sm placeholder:text-slate-600 resize-none py-2 px-3" placeholder="Draft a manual reply..." rows="2"></textarea>
+<div class="flex flex-col gap-1 pb-1">
+<button class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg hover:bg-indigo-500/20 transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</button>
+<button class="p-2 bg-primary text-on-primary-fixed rounded-lg hover:scale-105 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-lg" data-icon="send">send</span>
+</button>
+</div>
+</div>
+<div class="mt-4 flex flex-wrap gap-2">
+<span class="text-[9px] text-slate-500 font-bold uppercase tracking-tight py-1">Smart Templates:</span>
+<button class="text-[10px] font-bold text-indigo-400 hover:text-indigo-300 bg-indigo-500/5 px-3 py-1 rounded-full border border-indigo-500/10 hover:border-indigo-500/30 transition-all">Request Photos</button>
+<button class="text-[10px] font-bold text-indigo-400 hover:text-indigo-300 bg-indigo-500/5 px-3 py-1 rounded-full border border-indigo-500/10 hover:border-indigo-500/30 transition-all">Confirm Appt</button>
+<button class="text-[10px] font-bold text-indigo-400 hover:text-indigo-300 bg-indigo-500/5 px-3 py-1 rounded-full border border-indigo-500/10 hover:border-indigo-500/30 transition-all">Pricing Estimate</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-3xl bg-[#091328]/95 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.6)] h-20 px-6 pb-2 flex justify-between items-center">
+<a class="flex flex-col items-center justify-center text-indigo-400" href="#">
+<span class="material-symbols-outlined mb-0.5" data-icon="dashboard">dashboard</span>
+<span class="font-inter text-[10px] font-bold uppercase tracking-wider">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-indigo-400 transition-colors" href="#">
+<span class="material-symbols-outlined mb-0.5" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-inter text-[10px] font-bold uppercase tracking-wider">Leads</span>
+</a>
+<div class="relative -top-6">
+<button class="w-14 h-14 bg-gradient-to-tr from-primary to-secondary rounded-2xl shadow-xl shadow-primary/40 flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-2xl" data-icon="add">add</span>
+</button>
+</div>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-indigo-400 transition-colors" href="#">
+<span class="material-symbols-outlined mb-0.5" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-inter text-[10px] font-bold uppercase tracking-wider">AI Lab</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-indigo-400 transition-colors" href="#">
+<span class="material-symbols-outlined mb-0.5" data-icon="settings">settings</span>
+<span class="font-inter text-[10px] font-bold uppercase tracking-wider">Setup</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="w-full py-12 border-t border-white/5 bg-[#060e20]">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto">
+<div class="flex items-center gap-2 mb-6 md:mb-0">
+<span class="material-symbols-outlined text-indigo-400" data-icon="bubble_chart">bubble_chart</span>
+<span class="text-indigo-400 font-bold font-headline">LeadFlow Kinetic</span>
+</div>
+<p class="text-slate-600 font-inter text-xs order-3 md:order-2">© 2024 LeadFlow Kinetic. All rights reserved.</p>
+<div class="flex flex-wrap justify-center gap-6 mb-6 md:mb-0 order-2 md:order-3">
+<a class="text-slate-600 hover:text-indigo-400 transition-colors font-inter text-xs" href="#">Privacy</a>
+<a class="text-slate-600 hover:text-indigo-400 transition-colors font-inter text-xs" href="#">Terms</a>
+<a class="text-slate-600 hover:text-indigo-400 transition-colors font-inter text-xs" href="#">API Docs</a>
+<a class="text-slate-600 hover:text-indigo-400 transition-colors font-inter text-xs" href="#">Support</a>
+</div>
+</div>
+</footer>
+</body></html>

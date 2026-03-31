@@ -1,0 +1,991 @@
+﻿{
+  "config": {
+    "configFile": "C:\\Josh\\Projects\\SMS Lead Template\\playwright.config.js",
+    "rootDir": "C:/Josh/Projects/SMS Lead Template/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 14
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Josh/Projects/SMS Lead Template/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 14
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Josh/Projects/SMS Lead Template/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "runAgents": "none",
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.58.2",
+    "workers": 14,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:5173",
+      "reuseExistingServer": true
+    }
+  },
+  "suites": [
+    {
+      "title": "app.spec.js",
+      "file": "app.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Marketing Site",
+          "file": "app.spec.js",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "loads hero section with correct headline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 728,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:00.931Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-df85679b8d7886eaf9d5",
+              "file": "app.spec.js",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "nav has all expected links",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "failed",
+                      "duration": 787,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.nav-brand-text')\nExpected: \u001b[32m\"LeadFlow\"\u001b[39m\nError: strict mode violation: locator('.nav-brand-text') resolved to 2 elements:\n    1) <span class=\"nav-brand-text\">LeadFlow</span> aka getByRole('navigation').getByText('LeadFlow')\n    2) <span class=\"nav-brand-text\">LeadFlow</span> aka getByRole('contentinfo').getByText('LeadFlow', { exact: true })\n\nCall log:\n\u001b[2m  - Expect \"toHaveText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.nav-brand-text')\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.nav-brand-text')\nExpected: \u001b[32m\"LeadFlow\"\u001b[39m\nError: strict mode violation: locator('.nav-brand-text') resolved to 2 elements:\n    1) <span class=\"nav-brand-text\">LeadFlow</span> aka getByRole('navigation').getByText('LeadFlow')\n    2) <span class=\"nav-brand-text\">LeadFlow</span> aka getByRole('contentinfo').getByText('LeadFlow', { exact: true })\n\nCall log:\n\u001b[2m  - Expect \"toHaveText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.nav-brand-text')\u001b[22m\n\n    at C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js:12:51",
+                        "location": {
+                          "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                          "column": 51,
+                          "line": 12
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 10 |\u001b[39m   test(\u001b[32m'nav has all expected links'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 11 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 12 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.nav-brand-text'\u001b[39m))\u001b[33m.\u001b[39mtoHaveText(\u001b[32m'LeadFlow'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 13 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.nav-links a'\u001b[39m))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m3\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 14 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                            "column": 51,
+                            "line": 12
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.nav-brand-text')\nExpected: \u001b[32m\"LeadFlow\"\u001b[39m\nError: strict mode violation: locator('.nav-brand-text') resolved to 2 elements:\n    1) <span class=\"nav-brand-text\">LeadFlow</span> aka getByRole('navigation').getByText('LeadFlow')\n    2) <span class=\"nav-brand-text\">LeadFlow</span> aka getByRole('contentinfo').getByText('LeadFlow', { exact: true })\n\nCall log:\n\u001b[2m  - Expect \"toHaveText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.nav-brand-text')\u001b[22m\n\n\n  10 |   test('nav has all expected links', async ({ page }) => {\n  11 |     await page.goto('/');\n> 12 |     await expect(page.locator('.nav-brand-text')).toHaveText('LeadFlow');\n     |                                                   ^\n  13 |     await expect(page.locator('.nav-links a')).toHaveCount(3);\n  14 |   });\n  15 |\n    at C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js:12:51"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:00.916Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Josh\\Projects\\SMS Lead Template\\test-results\\app-Marketing-Site-nav-has-all-expected-links-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Josh\\Projects\\SMS Lead Template\\test-results\\app-Marketing-Site-nav-has-all-expected-links-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                        "column": 51,
+                        "line": 12
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-5b6c721cdfee88e4ca0d",
+              "file": "app.spec.js",
+              "line": 10,
+              "column": 3
+            },
+            {
+              "title": "pain point cards render",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 795,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:00.962Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-7abf3e9a871ea402f347",
+              "file": "app.spec.js",
+              "line": 16,
+              "column": 3
+            },
+            {
+              "title": "solution cards render",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 747,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:00.914Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-45f668dc0ffbc00a8547",
+              "file": "app.spec.js",
+              "line": 21,
+              "column": 3
+            },
+            {
+              "title": "how it works steps render",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 866,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:00.978Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-86b68637826d67c48e87",
+              "file": "app.spec.js",
+              "line": 26,
+              "column": 3
+            },
+            {
+              "title": "pricing card shows correct amounts",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 815,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:00.996Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-cca570fa057363967948",
+              "file": "app.spec.js",
+              "line": 31,
+              "column": 3
+            },
+            {
+              "title": "FAQ accordion expands on click",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 6,
+                      "status": "passed",
+                      "duration": 749,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:00.947Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-0253e8360dd68edf750d",
+              "file": "app.spec.js",
+              "line": 38,
+              "column": 3
+            },
+            {
+              "title": "features grid shows 6 cards",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 7,
+                      "status": "passed",
+                      "duration": 750,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:00.996Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-9f2176bf9c16df2e7300",
+              "file": "app.spec.js",
+              "line": 45,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Demo Flow",
+          "file": "app.spec.js",
+          "line": 51,
+          "column": 6,
+          "specs": [
+            {
+              "title": "navigates to demo and shows customer form",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 8,
+                      "status": "failed",
+                      "duration": 812,
+                      "error": {
+                        "message": "Error: locator.click: Error: strict mode violation: locator('.hero-ctas .btn-primary') resolved to 2 elements:\n    1) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka locator('section').filter({ hasText: 'Built for Local Service' }).getByRole('button')\n    2) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka getByRole('button', { name: 'See the Demo' }).nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.hero-ctas .btn-primary')\u001b[22m\n",
+                        "stack": "Error: locator.click: Error: strict mode violation: locator('.hero-ctas .btn-primary') resolved to 2 elements:\n    1) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka locator('section').filter({ hasText: 'Built for Local Service' }).getByRole('button')\n    2) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka getByRole('button', { name: 'See the Demo' }).nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.hero-ctas .btn-primary')\u001b[22m\n\n    at C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js:54:51",
+                        "location": {
+                          "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                          "column": 51,
+                          "line": 54
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 52 |\u001b[39m   test(\u001b[32m'navigates to demo and shows customer form'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 53 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 54 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.hero-ctas .btn-primary'\u001b[39m)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 55 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.customer-form-wrapper'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 56 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.cf-header h2'\u001b[39m))\u001b[33m.\u001b[39mtoHaveText(\u001b[32m\"John's Tree Service\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 57 |\u001b[39m   })\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                            "column": 51,
+                            "line": 54
+                          },
+                          "message": "Error: locator.click: Error: strict mode violation: locator('.hero-ctas .btn-primary') resolved to 2 elements:\n    1) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka locator('section').filter({ hasText: 'Built for Local Service' }).getByRole('button')\n    2) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka getByRole('button', { name: 'See the Demo' }).nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.hero-ctas .btn-primary')\u001b[22m\n\n\n  52 |   test('navigates to demo and shows customer form', async ({ page }) => {\n  53 |     await page.goto('/');\n> 54 |     await page.locator('.hero-ctas .btn-primary').click();\n     |                                                   ^\n  55 |     await expect(page.locator('.customer-form-wrapper')).toBeVisible();\n  56 |     await expect(page.locator('.cf-header h2')).toHaveText(\"John's Tree Service\");\n  57 |   });\n    at C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js:54:51"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:00.961Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Josh\\Projects\\SMS Lead Template\\test-results\\app-Demo-Flow-navigates-to-demo-and-shows-customer-form-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Josh\\Projects\\SMS Lead Template\\test-results\\app-Demo-Flow-navigates-to-demo-and-shows-customer-form-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                        "column": 51,
+                        "line": 54
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-082edfe171c9638698cd",
+              "file": "app.spec.js",
+              "line": 52,
+              "column": 3
+            },
+            {
+              "title": "submitting form transitions to SMS view",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 9,
+                      "status": "failed",
+                      "duration": 698,
+                      "error": {
+                        "message": "Error: locator.click: Error: strict mode violation: locator('.hero-ctas .btn-primary') resolved to 2 elements:\n    1) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka locator('section').filter({ hasText: 'Built for Local Service' }).getByRole('button')\n    2) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka getByRole('button', { name: 'See the Demo' }).nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.hero-ctas .btn-primary')\u001b[22m\n",
+                        "stack": "Error: locator.click: Error: strict mode violation: locator('.hero-ctas .btn-primary') resolved to 2 elements:\n    1) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka locator('section').filter({ hasText: 'Built for Local Service' }).getByRole('button')\n    2) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka getByRole('button', { name: 'See the Demo' }).nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.hero-ctas .btn-primary')\u001b[22m\n\n    at C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js:61:51",
+                        "location": {
+                          "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                          "column": 51,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 59 |\u001b[39m   test(\u001b[32m'submitting form transitions to SMS view'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 60 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 61 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.hero-ctas .btn-primary'\u001b[39m)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 62 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.customer-form-wrapper form button[type=\"submit\"]'\u001b[39m)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 63 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.sms-phone'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 64 |\u001b[39m   })\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                            "column": 51,
+                            "line": 61
+                          },
+                          "message": "Error: locator.click: Error: strict mode violation: locator('.hero-ctas .btn-primary') resolved to 2 elements:\n    1) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka locator('section').filter({ hasText: 'Built for Local Service' }).getByRole('button')\n    2) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka getByRole('button', { name: 'See the Demo' }).nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.hero-ctas .btn-primary')\u001b[22m\n\n\n  59 |   test('submitting form transitions to SMS view', async ({ page }) => {\n  60 |     await page.goto('/');\n> 61 |     await page.locator('.hero-ctas .btn-primary').click();\n     |                                                   ^\n  62 |     await page.locator('.customer-form-wrapper form button[type=\"submit\"]').click();\n  63 |     await expect(page.locator('.sms-phone')).toBeVisible();\n  64 |   });\n    at C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js:61:51"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:00.962Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Josh\\Projects\\SMS Lead Template\\test-results\\app-Demo-Flow-submitting-form-transitions-to-SMS-view-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Josh\\Projects\\SMS Lead Template\\test-results\\app-Demo-Flow-submitting-form-transitions-to-SMS-view-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                        "column": 51,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-20c12b718069afd0ede4",
+              "file": "app.spec.js",
+              "line": 59,
+              "column": 3
+            },
+            {
+              "title": "SMS messages animate in over time",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 10,
+                      "status": "failed",
+                      "duration": 735,
+                      "error": {
+                        "message": "Error: locator.click: Error: strict mode violation: locator('.hero-ctas .btn-primary') resolved to 2 elements:\n    1) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka locator('section').filter({ hasText: 'Built for Local Service' }).getByRole('button')\n    2) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka getByRole('button', { name: 'See the Demo' }).nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.hero-ctas .btn-primary')\u001b[22m\n",
+                        "stack": "Error: locator.click: Error: strict mode violation: locator('.hero-ctas .btn-primary') resolved to 2 elements:\n    1) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka locator('section').filter({ hasText: 'Built for Local Service' }).getByRole('button')\n    2) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka getByRole('button', { name: 'See the Demo' }).nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.hero-ctas .btn-primary')\u001b[22m\n\n    at C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js:68:51",
+                        "location": {
+                          "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                          "column": 51,
+                          "line": 68
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 66 |\u001b[39m   test(\u001b[32m'SMS messages animate in over time'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 67 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 68 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.hero-ctas .btn-primary'\u001b[39m)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 69 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.customer-form-wrapper form button[type=\"submit\"]'\u001b[39m)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 70 |\u001b[39m     \u001b[90m// Wait for at least 2 messages to appear\u001b[39m\n \u001b[90m 71 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.sms-bubble'\u001b[39m))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m2\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m5000\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                            "column": 51,
+                            "line": 68
+                          },
+                          "message": "Error: locator.click: Error: strict mode violation: locator('.hero-ctas .btn-primary') resolved to 2 elements:\n    1) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka locator('section').filter({ hasText: 'Built for Local Service' }).getByRole('button')\n    2) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka getByRole('button', { name: 'See the Demo' }).nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.hero-ctas .btn-primary')\u001b[22m\n\n\n  66 |   test('SMS messages animate in over time', async ({ page }) => {\n  67 |     await page.goto('/');\n> 68 |     await page.locator('.hero-ctas .btn-primary').click();\n     |                                                   ^\n  69 |     await page.locator('.customer-form-wrapper form button[type=\"submit\"]').click();\n  70 |     // Wait for at least 2 messages to appear\n  71 |     await expect(page.locator('.sms-bubble')).toHaveCount(2, { timeout: 5000 });\n    at C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js:68:51"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:00.995Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Josh\\Projects\\SMS Lead Template\\test-results\\app-Demo-Flow-SMS-messages-animate-in-over-time-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Josh\\Projects\\SMS Lead Template\\test-results\\app-Demo-Flow-SMS-messages-animate-in-over-time-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                        "column": 51,
+                        "line": 68
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-f15379dbbe7435032b39",
+              "file": "app.spec.js",
+              "line": 66,
+              "column": 3
+            },
+            {
+              "title": "demo progress dots show correct state",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 11,
+                      "status": "failed",
+                      "duration": 791,
+                      "error": {
+                        "message": "Error: locator.click: Error: strict mode violation: locator('.hero-ctas .btn-primary') resolved to 2 elements:\n    1) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka locator('section').filter({ hasText: 'Built for Local Service' }).getByRole('button')\n    2) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka getByRole('button', { name: 'See the Demo' }).nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.hero-ctas .btn-primary')\u001b[22m\n",
+                        "stack": "Error: locator.click: Error: strict mode violation: locator('.hero-ctas .btn-primary') resolved to 2 elements:\n    1) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka locator('section').filter({ hasText: 'Built for Local Service' }).getByRole('button')\n    2) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka getByRole('button', { name: 'See the Demo' }).nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.hero-ctas .btn-primary')\u001b[22m\n\n    at C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js:76:51",
+                        "location": {
+                          "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                          "column": 51,
+                          "line": 76
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 74 |\u001b[39m   test(\u001b[32m'demo progress dots show correct state'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 75 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 76 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.hero-ctas .btn-primary'\u001b[39m)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 77 |\u001b[39m     \u001b[36mconst\u001b[39m firstDot \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.demo-dot'\u001b[39m)\u001b[33m.\u001b[39mfirst()\u001b[33m;\u001b[39m\n \u001b[90m 78 |\u001b[39m     \u001b[36mawait\u001b[39m expect(firstDot)\u001b[33m.\u001b[39mtoHaveClass(\u001b[35m/active/\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 79 |\u001b[39m   })\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                            "column": 51,
+                            "line": 76
+                          },
+                          "message": "Error: locator.click: Error: strict mode violation: locator('.hero-ctas .btn-primary') resolved to 2 elements:\n    1) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka locator('section').filter({ hasText: 'Built for Local Service' }).getByRole('button')\n    2) <button class=\"btn btn-primary btn-lg\">ΓÇª</button> aka getByRole('button', { name: 'See the Demo' }).nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.hero-ctas .btn-primary')\u001b[22m\n\n\n  74 |   test('demo progress dots show correct state', async ({ page }) => {\n  75 |     await page.goto('/');\n> 76 |     await page.locator('.hero-ctas .btn-primary').click();\n     |                                                   ^\n  77 |     const firstDot = page.locator('.demo-dot').first();\n  78 |     await expect(firstDot).toHaveClass(/active/);\n  79 |   });\n    at C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js:76:51"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:00.995Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Josh\\Projects\\SMS Lead Template\\test-results\\app-Demo-Flow-demo-progress-dots-show-correct-state-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Josh\\Projects\\SMS Lead Template\\test-results\\app-Demo-Flow-demo-progress-dots-show-correct-state-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Josh\\Projects\\SMS Lead Template\\tests\\app.spec.js",
+                        "column": 51,
+                        "line": 76
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-d1bd701d186f68d9cfce",
+              "file": "app.spec.js",
+              "line": 74,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Login & Dashboard",
+          "file": "app.spec.js",
+          "line": 82,
+          "column": 6,
+          "specs": [
+            {
+              "title": "login page renders correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 12,
+                      "parallelIndex": 12,
+                      "status": "passed",
+                      "duration": 735,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:01.025Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-ceee89beecd680a6666b",
+              "file": "app.spec.js",
+              "line": 83,
+              "column": 3
+            },
+            {
+              "title": "logging in navigates to dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "parallelIndex": 13,
+                      "status": "passed",
+                      "duration": 1518,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:00.995Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-0d2f160ad93326d8b040",
+              "file": "app.spec.js",
+              "line": 89,
+              "column": 3
+            },
+            {
+              "title": "dashboard shows correct stats",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 1415,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:01.769Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-19c6a48098efb1bd0d72",
+              "file": "app.spec.js",
+              "line": 97,
+              "column": 3
+            },
+            {
+              "title": "leads table shows recent leads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1395,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:01.788Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-bfb9382fafbd581a754b",
+              "file": "app.spec.js",
+              "line": 105,
+              "column": 3
+            },
+            {
+              "title": "navigating to Leads tab shows all 5 leads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 14,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1341,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:02.794Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-c65d7bf4696f38cf9380",
+              "file": "app.spec.js",
+              "line": 112,
+              "column": 3
+            },
+            {
+              "title": "clicking a lead opens detail panel",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 6,
+                      "status": "passed",
+                      "duration": 1459,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:01.897Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-092c129168057e48ad38",
+              "file": "app.spec.js",
+              "line": 120,
+              "column": 3
+            },
+            {
+              "title": "settings page renders all sections",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "parallelIndex": 9,
+                      "status": "passed",
+                      "duration": 1346,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:02.808Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-547effac0ead08ec6714",
+              "file": "app.spec.js",
+              "line": 130,
+              "column": 3
+            },
+            {
+              "title": "billing page renders plan and payment info",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1381,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:01.939Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-a31a37cab7d57ff38e65",
+              "file": "app.spec.js",
+              "line": 138,
+              "column": 3
+            },
+            {
+              "title": "logout returns to marketing site",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 16,
+                      "parallelIndex": 8,
+                      "status": "passed",
+                      "duration": 1420,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-22T00:23:02.887Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a510cc93a867214a2ea0-980d5cbceac5ac87a529",
+              "file": "app.spec.js",
+              "line": 147,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-03-22T00:22:59.851Z",
+    "duration": 4592.37,
+    "expected": 16,
+    "skipped": 0,
+    "unexpected": 5,
+    "flaky": 0
+  }
+}

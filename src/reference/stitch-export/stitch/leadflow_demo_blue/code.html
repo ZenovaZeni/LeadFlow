@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LeadFlow Interactive Demo | Kinetic Sanctuary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Manrope:wght@500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-fixed": "#000000",
+                        "secondary": "#4F46E5",
+                        "primary-fixed": "#818cf8",
+                        "on-background": "#dee5ff",
+                        "on-tertiary-fixed-variant": "#1e1b4b",
+                        "surface-tint": "#6366f1",
+                        "surface-container": "#0f1930",
+                        "on-primary-container": "#e0e7ff",
+                        "secondary-container": "#4F46E5",
+                        "primary": "#4F46E5",
+                        "surface-dim": "#060e20",
+                        "surface-container-lowest": "#000000",
+                        "primary-fixed-dim": "#6366f1",
+                        "on-surface": "#dee5ff",
+                        "primary-dim": "#4338ca",
+                        "tertiary-fixed": "#a5b4fc",
+                        "on-primary": "#ffffff",
+                        "error-dim": "#d73357",
+                        "surface-container-highest": "#192540",
+                        "on-secondary-fixed-variant": "#3730a3",
+                        "inverse-on-surface": "#4d556b",
+                        "on-tertiary-fixed": "#312e81",
+                        "on-error": "#490013",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#4F46E5",
+                        "outline": "#6d758c",
+                        "tertiary-dim": "#818cf8",
+                        "on-surface-variant": "#a3aac4",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#e0e7ff",
+                        "tertiary": "#818cf8",
+                        "surface-variant": "#192540",
+                        "on-tertiary-container": "#e0e7ff",
+                        "error-container": "#a70138",
+                        "secondary-fixed-dim": "#818cf8",
+                        "inverse-surface": "#faf8ff",
+                        "tertiary-fixed-dim": "#818cf8",
+                        "surface-container-low": "#091328",
+                        "surface": "#060e20",
+                        "secondary-dim": "#4338ca",
+                        "background": "#060e20",
+                        "surface-container-high": "#141f38",
+                        "on-error-container": "#ffb2b9",
+                        "on-primary-fixed-variant": "#3730a3",
+                        "inverse-primary": "#4338ca",
+                        "outline-variant": "#40485d",
+                        "secondary-fixed": "#c7d2fe",
+                        "on-secondary-fixed": "#1e1b4b",
+                        "tertiary-container": "#4F46E5",
+                        "surface-bright": "#1f2b49",
+                        "error": "#ff6e84"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .luxury-gap { gap: 4rem; }
+        .glass-card {
+            background: rgba(25, 37, 64, 0.4);
+            backdrop-filter: blur(16px);
+            outline: 1px solid rgba(64, 72, 93, 0.15);
+        }
+        .iphone-frame {
+            border: 8px solid #192540;
+            border-radius: 44px;
+            box-shadow: 0 0 0 2px #40485d, 0 30px 60px -12px rgba(0,0,0,0.6);
+            overflow: hidden;
+            background: #000;
+        }
+        .tonal-transition {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary/30">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#060e20]/80 backdrop-blur-xl shadow-2xl shadow-indigo-900/20">
+<div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-500 text-2xl" data-icon="bubble_chart">bubble_chart</span>
+<span class="text-2xl font-black bg-gradient-to-r from-[#818cf8] to-[#4F46E5] bg-clip-text text-transparent font-manrope tracking-tight">LeadFlow</span>
+</div>
+<nav class="hidden md:flex gap-8">
+<a class="text-indigo-400 font-semibold font-manrope transition-colors" href="#">Demo</a>
+<a class="text-slate-400 hover:text-indigo-300 transition-colors font-manrope" href="#">Solutions</a>
+<a class="text-slate-400 hover:text-indigo-300 transition-colors font-manrope" href="#">Pricing</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border-2 border-indigo-500/30 overflow-hidden">
+<img alt="professional corporate headshot of a male executive in dark blue attire with soft studio lighting" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAscpEevTgbzJp5Yos5eH1jWIAGzVzgoJcfkCnwiThgEeD-98-f4QfZ7bC5uFt5WVl0MrnHDjl__nwkNuROVPl2Qodo7QkriThPQdlOhHXUWIIX-phSuaeBlB_EsV1oKzpTEdpCIIS0xsHepT-dvMI2p2TBP8hyREbougBWNjAw9dWMB48d7Ey980wiH6fTZ_h-lmz67k1qSgsF5llOfjpJ3uHrkMaFawcfhf30cuYFInfXq_MgDfpOLW0nqLj7ZQs7pSGmE2lmd-Mn"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-28 pb-32 max-w-7xl mx-auto px-6">
+<!-- Industry Selector -->
+<section class="mb-16">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h1 class="text-4xl md:text-5xl font-extrabold font-headline mb-4 tracking-tight">Interactive <span class="text-primary">Demo</span></h1>
+<p class="text-on-surface-variant max-w-xl text-lg">Experience how LeadFlow transforms a cold inquiry into a qualified booking in seconds. Choose your industry to start.</p>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="px-6 py-3 rounded-xl bg-primary text-on-primary font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-transform">Tree Service</button>
+<button class="px-6 py-3 rounded-xl glass-card text-on-surface hover:bg-surface-container-highest transition-all">Plumbing</button>
+<button class="px-6 py-3 rounded-xl glass-card text-on-surface hover:bg-surface-container-highest transition-all">HVAC</button>
+<button class="px-6 py-3 rounded-xl glass-card text-on-surface hover:bg-surface-container-highest transition-all">Landscaping</button>
+</div>
+</div>
+</section>
+<!-- The Flow Visualization -->
+<div class="grid grid-cols-1 lg:grid-cols-3 luxury-gap items-start">
+<!-- Step 1: The Booking Page -->
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-primary font-bold text-sm">01</span>
+<h2 class="font-headline text-xl font-bold">The Booking Portal</h2>
+</div>
+<div class="glass-card rounded-[2rem] p-8 border border-white/5 shadow-2xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="material-symbols-outlined text-primary-dim/40 scale-150" data-icon="verified">verified</span>
+</div>
+<div class="mb-8">
+<img alt="logo of a premium tree service company with modern typography and a minimalist pine tree icon" class="h-12 w-auto mb-4 rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPgjYBvRreAY79fdflSdRJlDCV66f6yFCWZBsIsAAsZcxX-jl2teU3-IjKXYBAshdOvFwgEMMJCk1aaP_aml0LjzjInOZOfDLqhXbkXIoo9kI1VPuIbEHVGxbOTmwxy_7voJyBd7NmnByV2TKc2Z6Fqpn4GfkPwkhCFN-FhfhVr6N8ZNNc0Yd_IPD77hl4hfGGXzzonNdnzLeXbJ2ZryGukxZokG6V-WT-EGhpQNzYS_QbEmdHQ1n5ojU7ia2C9cEV4bzt4Vlsdxry"/>
+<h3 class="text-2xl font-bold font-headline">Get Your Free Quote</h3>
+<p class="text-sm text-on-surface-variant">Top-rated local experts since 1998.</p>
+</div>
+<div class="space-y-4">
+<div class="space-y-1.5">
+<label class="text-xs font-medium uppercase tracking-widest text-on-surface-variant px-1">Full Name</label>
+<input class="w-full bg-surface-container-low border-0 rounded-xl focus:ring-2 ring-primary/50 text-on-surface p-4" placeholder="John Miller" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-medium uppercase tracking-widest text-on-surface-variant px-1">Phone Number</label>
+<input class="w-full bg-surface-container-low border-0 rounded-xl focus:ring-2 ring-primary/50 text-on-surface p-4" placeholder="(555) 000-0000" type="tel"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-medium uppercase tracking-widest text-on-surface-variant px-1">Service Needed</label>
+<select class="w-full bg-surface-container-low border-0 rounded-xl focus:ring-2 ring-primary/50 text-on-surface p-4">
+<option>Emergency Tree Removal</option>
+<option>Stump Grinding</option>
+<option>Pruning &amp; Trimming</option>
+</select>
+</div>
+<button class="w-full py-5 rounded-xl bg-gradient-to-r from-[#6366f1] to-[#4F46E5] text-white font-black text-lg uppercase tracking-widest shadow-xl shadow-indigo-500/20 active:scale-[0.98] transition-all">
+                            Send Sample Lead
+                        </button>
+</div>
+<p class="mt-6 text-[10px] text-center text-on-surface-variant/60 leading-relaxed">
+                        By clicking, you agree to receive automated SMS messages. Reply STOP to opt-out.
+                    </p>
+</div>
+</div>
+<!-- Step 2: The SMS Simulation -->
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-primary font-bold text-sm">02</span>
+<h2 class="font-headline text-xl font-bold">AI Qualification</h2>
+</div>
+<div class="iphone-frame w-[320px] mx-auto h-[640px] flex flex-col">
+<!-- iOS Status Bar -->
+<div class="h-10 w-full flex justify-between items-center px-8 pt-4">
+<span class="text-[12px] font-bold text-white">9:41</span>
+<div class="flex gap-1.5">
+<span class="material-symbols-outlined text-white text-sm" data-icon="signal_cellular_4_bar">signal_cellular_4_bar</span>
+<span class="material-symbols-outlined text-white text-sm" data-icon="wifi">wifi</span>
+<span class="material-symbols-outlined text-white text-sm" data-icon="battery_full">battery_full</span>
+</div>
+</div>
+<!-- Messages Header -->
+<div class="p-4 border-b border-white/10 flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-primary" data-icon="person">person</span>
+</div>
+<span class="text-[10px] text-on-surface-variant">Kinetic Tree Pro</span>
+</div>
+<!-- Message Thread -->
+<div class="flex-1 p-4 space-y-4 overflow-y-auto bg-black">
+<!-- AI Message -->
+<div class="flex flex-col items-start max-w-[85%]">
+<div class="bg-surface-container-high text-white p-3 rounded-2xl rounded-bl-none text-sm">
+                                Hey John! Thanks for reaching out to Kinetic Tree. 🌳
+                            </div>
+</div>
+<div class="flex flex-col items-start max-w-[85%]">
+<div class="bg-surface-container-high text-white p-3 rounded-2xl rounded-bl-none text-sm">
+                                Is this tree near any power lines or your home?
+                            </div>
+<span class="text-[9px] text-slate-500 mt-1 ml-1">Delivered</span>
+</div>
+<!-- Customer Message -->
+<div class="flex flex-col items-end self-end max-w-[85%] ml-auto">
+<div class="bg-primary p-3 rounded-2xl rounded-br-none text-sm text-white">
+                                Yes, it's leaning right over the garage roof. Worried about the storm tonight.
+                            </div>
+</div>
+<!-- AI Message -->
+<div class="flex flex-col items-start max-w-[85%]">
+<div class="bg-surface-container-high text-white p-3 rounded-2xl rounded-bl-none text-sm">
+                                Got it. That sounds urgent. I've flagged this as a Priority Lead for our owner. 
+                            </div>
+</div>
+<!-- AI Thinking Indicator -->
+<div class="flex items-center gap-1 ml-2">
+<div class="w-1.5 h-1.5 bg-primary/40 rounded-full"></div>
+<div class="w-1.5 h-1.5 bg-primary/60 rounded-full"></div>
+<div class="w-1.5 h-1.5 bg-primary/80 rounded-full"></div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-4 flex items-center gap-2 mb-2">
+<div class="flex-1 bg-surface-container-highest rounded-full py-2 px-4 text-xs text-on-surface-variant">iMessage</div>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-sm" data-icon="arrow_upward">arrow_upward</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 3: Owner Alert -->
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-primary font-bold text-sm">03</span>
+<h2 class="font-headline text-xl font-bold">Owner Notification</h2>
+</div>
+<div class="iphone-frame w-[320px] mx-auto h-[640px] relative">
+<!-- Locked Screen Wallpaper -->
+<div class="absolute inset-0 z-0">
+<img alt="abstract fluid aesthetic background with deep indigo and violet waves and subtle grain texture" class="w-full h-full object-cover brightness-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSKRzpOlbf1_tQ8gDQi2hPzClOftAK8dHLbNeuLfvklWEDcNK4_HgnT8WWivBkc_o_Ypf_MA2o42WR5hkG9pOYciYYOKAOpzQdsmNns6wDD_Vtj82YN9JComNEssp5pKlCrOp-JCt1P7DHl_YzN9slW_mWIoy9mnvM2VaUKRLiZJ-cAzkvvDEfw2m1LdIHKAt1MwshC58iqe4hu3rlfox6eWoqmqWotGFy8M58ENKXD7hYjBbuNq-cMZVdAI4ZAHj1DKZmjS4GihCT"/>
+</div>
+<div class="relative z-10 flex flex-col h-full pt-20 px-6">
+<!-- Clock -->
+<div class="flex flex-col items-center mb-12">
+<span class="text-6xl font-headline font-medium text-white/90">9:42</span>
+<span class="text-sm font-medium text-white/70">Monday, Oct 24</span>
+</div>
+<!-- Notification Stack -->
+<div class="space-y-3">
+<!-- LeadFlow Notification -->
+<div class="bg-white/10 backdrop-blur-2xl rounded-3xl p-4 border border-white/10 shadow-xl">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-6 h-6 rounded bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-on-primary" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<span class="text-[11px] font-bold text-white/80 uppercase tracking-tighter">LeadFlow AI</span>
+<span class="text-[11px] text-white/40 ml-auto">now</span>
+</div>
+<h4 class="text-sm font-bold text-white mb-1">🔥 Priority Lead: John Miller</h4>
+<p class="text-xs text-white/70 leading-snug">
+<span class="text-primary-fixed">Summary:</span> Emergency removal needed. Tree leaning over garage. Customer is high-intent due to storm.
+                                </p>
+<div class="mt-3 flex gap-2">
+<button class="flex-1 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-[10px] font-bold text-white transition-colors">CALL NOW</button>
+<button class="flex-1 py-2 bg-primary/60 hover:bg-primary/80 rounded-lg text-[10px] font-bold text-white transition-colors">VIEW CRM</button>
+</div>
+</div>
+<!-- Dashboard Stats Mini-Card -->
+<div class="bg-white/5 backdrop-blur-xl rounded-2xl p-3 border border-white/5 opacity-80">
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-[10px] text-white/40 uppercase">Daily Revenue</span>
+<span class="text-lg font-headline font-bold text-white">$4,250.00</span>
+</div>
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="trending_up">trending_up</span>
+</div>
+</div>
+</div>
+<!-- Home Indicator -->
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/30 rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Call to Action Section -->
+<section class="mt-24 text-center glass-card rounded-[3rem] p-12 md:p-20 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 pointer-events-none"></div>
+<div class="relative z-10 max-w-2xl mx-auto">
+<h2 class="text-4xl md:text-5xl font-extrabold font-headline mb-6">Ready to automate your <span class="text-primary">growth?</span></h2>
+<p class="text-on-surface-variant text-lg mb-10">Join 500+ service business owners who reclaimed 20 hours a week using LeadFlow Kinetic.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<button class="px-10 py-5 bg-primary text-on-primary-fixed font-black rounded-2xl hover:scale-105 transition-transform shadow-2xl shadow-primary/30 text-lg uppercase tracking-wider">Book a Live Demo</button>
+<button class="px-10 py-5 glass-card text-on-surface font-bold rounded-2xl hover:bg-surface-container-highest transition-all text-lg border border-white/10">View Pricing</button>
+</div>
+</div>
+</section>
+</main>
+<!-- NavigationDrawer -->
+<aside class="fixed left-0 top-0 hidden lg:flex flex-col h-full w-20 border-r border-white/5 bg-[#060e20] z-40 pt-24 hover:w-64 group transition-all duration-500 overflow-hidden">
+<div class="flex flex-col gap-4 p-4">
+<div class="flex items-center gap-4 bg-gradient-to-r from-indigo-500/20 to-transparent border-l-4 border-indigo-500 p-3 rounded-r-xl text-indigo-100 group-hover:translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-manrope font-medium whitespace-nowrap">Overview</span>
+</div>
+<div class="flex items-center gap-4 text-slate-400 hover:bg-white/5 p-3 rounded-xl hover:translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-manrope font-medium whitespace-nowrap">Revenue</span>
+</div>
+<div class="flex items-center gap-4 text-slate-400 hover:bg-white/5 p-3 rounded-xl hover:translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-manrope font-medium whitespace-nowrap">Campaigns</span>
+</div>
+<div class="flex items-center gap-4 text-slate-400 hover:bg-white/5 p-3 rounded-xl hover:translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-icon="contacts">contacts</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-manrope font-medium whitespace-nowrap">Contact CRM</span>
+</div>
+</div>
+</aside>
+<!-- BottomNavBar for Mobile -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-3xl bg-[#091328]/90 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] flex justify-around items-center h-20 px-4 pb-2">
+<div class="flex flex-col items-center justify-center text-indigo-400 bg-indigo-500/10 rounded-xl px-4 py-1 active:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-inter text-[11px] font-medium uppercase tracking-wider">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 hover:text-indigo-300">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-inter text-[11px] font-medium uppercase tracking-wider">Leads</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 hover:text-indigo-300">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-inter text-[11px] font-medium uppercase tracking-wider">Automations</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 hover:text-indigo-300">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-inter text-[11px] font-medium uppercase tracking-wider">Settings</span>
+</div>
+</nav>
+<!-- Footer -->
+<footer class="w-full py-12 border-t border-white/5 bg-[#060e20]">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto gap-8">
+<div class="flex items-center gap-2">
+<span class="text-indigo-400 font-bold font-manrope">LeadFlow Kinetic</span>
+<span class="text-slate-600 font-inter text-xs">© 2024 LeadFlow Kinetic. All rights reserved.</span>
+</div>
+<div class="flex gap-6">
+<a class="text-slate-600 hover:text-indigo-300 transition-colors text-xs font-inter" href="#">Privacy Policy</a>
+<a class="text-slate-600 hover:text-indigo-300 transition-colors text-xs font-inter" href="#">Terms of Service</a>
+<a class="text-slate-600 hover:text-indigo-300 transition-colors text-xs font-inter" href="#">API Docs</a>
+<a class="text-slate-600 hover:text-indigo-300 transition-colors text-xs font-inter" href="#">Support</a>
+</div>
+</div>
+</footer>
+</body></html>

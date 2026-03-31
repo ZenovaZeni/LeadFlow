@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary-container": "#9396ff",
+            "on-surface-variant": "#a3aac4",
+            "on-secondary-fixed": "#40009b",
+            "inverse-surface": "#faf8ff",
+            "on-primary-fixed-variant": "#0e009d",
+            "surface-variant": "#192540",
+            "on-secondary": "#280067",
+            "on-tertiary-fixed": "#3b002b",
+            "on-primary": "#0f00a4",
+            "primary-dim": "#6063ee",
+            "surface-container-lowest": "#000000",
+            "outline": "#6d758c",
+            "surface-bright": "#1f2b49",
+            "secondary-fixed-dim": "#ceb9ff",
+            "secondary-fixed": "#dac9ff",
+            "surface-container-high": "#141f38",
+            "error-dim": "#d73357",
+            "secondary": "#ac8aff",
+            "on-background": "#dee5ff",
+            "surface": "#060e20",
+            "outline-variant": "#40485d",
+            "error-container": "#a70138",
+            "on-primary-fixed": "#000000",
+            "on-error": "#490013",
+            "tertiary": "#ffa5d9",
+            "primary": "#a3a6ff",
+            "surface-container-low": "#091328",
+            "primary-fixed": "#9396ff",
+            "on-tertiary": "#701455",
+            "on-secondary-container": "#d9c8ff",
+            "tertiary-container": "#ff8ed2",
+            "on-surface": "#dee5ff",
+            "surface-tint": "#a3a6ff",
+            "surface-container-highest": "#192540",
+            "inverse-on-surface": "#4d556b",
+            "secondary-container": "#5516be",
+            "on-tertiary-fixed-variant": "#6e1354",
+            "on-secondary-fixed-variant": "#5f28c8",
+            "on-tertiary-container": "#63054a",
+            "on-error-container": "#ffb2b9",
+            "tertiary-dim": "#ef81c4",
+            "inverse-primary": "#494bd7",
+            "surface-dim": "#060e20",
+            "surface-container": "#0f1930",
+            "tertiary-fixed": "#ff8ed2",
+            "error": "#ff6e84",
+            "secondary-dim": "#8455ef",
+            "primary-fixed-dim": "#8387ff",
+            "tertiary-fixed-dim": "#ef81c4",
+            "on-primary-container": "#0a0081",
+            "background": "#060e20"
+          },
+          fontFamily: {
+            "headline": ["Manrope"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #40485d;
+      border-radius: 10px;
+    }
+    .glass-card {
+      background: rgba(25, 37, 64, 0.4);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(64, 72, 93, 0.15);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body overflow-hidden">
+<!-- Top AppBar (Shared Component Logic) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#060e20]/80 backdrop-blur-2xl border-b border-white/5 shadow-2xl shadow-indigo-900/20">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Professional male user profile portrait with neutral lighting and clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1nUJ4-ewLarWOZs_iurqXeopiEAOSfn2skiYXEN-5bfdr_ntaUpJVh3JZx865Pq78AYl1KsX6trpU6rI_lRODevPKF3l8xppSd-m23_ohMGrAKF7vo46BVHj_r3eNK4we8i_KDdyhDqcytVKlGf8FxGcDCmLSELfyDbxTUXDGKH1P6SFYnMDjxKqwmX6XFmbpnu5DeSKGv9lgXhWD-M6Q70yLhVPKlmnNQYcHJO1zHOLQnWoi20k6ke8gz8ePeykKK91a6PSIvBvV"/>
+</div>
+<h1 class="text-xl font-extrabold tracking-tighter bg-gradient-to-r from-[#a3a6ff] to-[#8455ef] bg-clip-text text-transparent">LeadFlow</h1>
+</div>
+<nav class="hidden md:flex gap-8">
+<a class="text-indigo-400 font-bold font-headline transition-all duration-300" href="#">Leads</a>
+<a class="text-slate-400 font-headline hover:bg-white/5 transition-all duration-300 px-2 rounded" href="#">Inbox</a>
+<a class="text-slate-400 font-headline hover:bg-white/5 transition-all duration-300 px-2 rounded" href="#">Billing</a>
+</nav>
+<div class="active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-indigo-400">notifications</span>
+</div>
+</header>
+<!-- Main Content Canvas (Background leads list simulation) -->
+<main class="pt-24 px-6 max-w-7xl mx-auto h-screen">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-20 pointer-events-none">
+<!-- Simulated Lead Cards -->
+<div class="glass-card p-6 rounded-3xl h-48"></div>
+<div class="glass-card p-6 rounded-3xl h-48"></div>
+<div class="glass-card p-6 rounded-3xl h-48"></div>
+<div class="glass-card p-6 rounded-3xl h-48"></div>
+<div class="glass-card p-6 rounded-3xl h-48"></div>
+<div class="glass-card p-6 rounded-3xl h-48"></div>
+</div>
+</main>
+<!-- Backdrop Dimmer -->
+<div class="fixed inset-0 bg-surface-container-lowest/60 backdrop-blur-sm z-[60]"></div>
+<!-- Lead Detail Slide-out Panel -->
+<aside class="fixed right-0 top-0 h-full w-full md:w-[600px] lg:w-[720px] bg-surface-container-low z-[70] shadow-[-20px_0_50px_rgba(0,0,0,0.5)] flex flex-col border-l border-white/5">
+<!-- Panel Header -->
+<div class="p-8 pb-4 flex justify-between items-start">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="bg-error-container/20 text-error px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">URGENT</span>
+<span class="text-on-surface-variant text-xs font-medium">Lead ID: #LF-9821</span>
+</div>
+<h2 class="text-3xl font-extrabold font-headline tracking-tight text-on-surface">Jordan Henderson</h2>
+<p class="text-primary text-lg font-medium">Emergency Water Mitigation</p>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Quick Actions & Contact -->
+<div class="px-8 flex flex-wrap gap-4 mb-8">
+<a class="flex items-center gap-2 bg-primary-container/10 border border-primary/20 text-primary px-4 py-2 rounded-2xl hover:bg-primary-container/20 transition-all" href="tel:5550123">
+<span class="material-symbols-outlined text-sm">call</span>
+<span class="font-bold text-sm">(555) 012-3456</span>
+</a>
+<a class="flex items-center gap-2 bg-surface-container-highest text-on-surface-variant px-4 py-2 rounded-2xl hover:text-on-surface transition-all" href="mailto:j.henderson@example.com">
+<span class="material-symbols-outlined text-sm">mail</span>
+<span class="font-bold text-sm">Email Lead</span>
+</a>
+<div class="ml-auto flex gap-2">
+<button class="bg-surface-container-highest text-on-surface-variant p-2 rounded-xl active:scale-90 transition-transform"><span class="material-symbols-outlined">share</span></button>
+<button class="bg-surface-container-highest text-on-surface-variant p-2 rounded-xl active:scale-90 transition-transform"><span class="material-symbols-outlined">more_horiz</span></button>
+</div>
+</div>
+<!-- AI Insights Section -->
+<div class="px-8 mb-8">
+<div class="glass-card rounded-[2rem] p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-tertiary text-xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<h3 class="font-headline font-bold text-tertiary tracking-wide uppercase text-xs">AI Intake Summary</h3>
+</div>
+<p class="text-on-surface leading-relaxed text-sm">
+          Customer reported a burst pipe in the upstairs bathroom. Significant water ingress into the ceiling below. Jordan sounds distressed and requested service within 2 hours. Mentioned they have homeowner's insurance with Liberty Mutual.
+        </p>
+<div class="mt-4 flex items-center gap-6">
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Confidence</span>
+<span class="text-primary font-bold text-xl">98%</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Sentiment</span>
+<span class="text-error font-bold text-xl italic">Anxious</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Est. Value</span>
+<span class="text-on-surface font-bold text-xl">$2,400</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Scrollable Conversation Area -->
+<div class="flex-1 overflow-y-auto px-8 custom-scrollbar space-y-6 pb-24">
+<!-- Date Divider -->
+<div class="flex justify-center">
+<span class="text-[10px] font-bold text-outline-variant tracking-[0.2em] uppercase">Today, 11:42 AM</span>
+</div>
+<!-- Customer Message -->
+<div class="flex flex-col items-start max-w-[85%]">
+<div class="bg-surface-container-high text-on-surface p-4 rounded-2xl rounded-tl-none border-l-2 border-primary">
+<p class="text-sm">Hi, I have a massive leak coming from my upstairs bathroom. It's already dripping through the kitchen light fixtures. Can someone come out right away?</p>
+</div>
+<span class="text-[10px] text-outline mt-1 ml-1">11:42 AM • Jordan</span>
+</div>
+<!-- AI Audit Note -->
+<div class="mx-auto max-w-[90%] border-y border-white/5 py-3 flex items-start gap-4">
+<div class="bg-tertiary/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div>
+<h4 class="text-[11px] font-bold text-tertiary uppercase tracking-wider mb-1">AI Action: Damage Assessment</h4>
+<p class="text-[12px] text-on-surface-variant italic">Identified emergency state. Triggering high-urgency workflow and suggesting technician dispatch.</p>
+</div>
+</div>
+<!-- AI Reply -->
+<div class="flex flex-col items-end max-w-[85%] ml-auto">
+<div class="bg-secondary-container text-white p-4 rounded-2xl rounded-tr-none shadow-lg shadow-secondary/10">
+<p class="text-sm">I'm so sorry to hear that, Jordan. That sounds like a serious emergency. I'm prioritizing your request right now. While I find our nearest technician, could you please tell me your full address?</p>
+</div>
+<span class="text-[10px] text-outline mt-1 mr-1">11:43 AM • LeadFlow AI</span>
+</div>
+<!-- Customer Message -->
+<div class="flex flex-col items-start max-w-[85%]">
+<div class="bg-surface-container-high text-on-surface p-4 rounded-2xl rounded-tl-none border-l-2 border-primary">
+<p class="text-sm">I'm at 1422 Oakwood Terrace, Suite 400. Please hurry, I've turned the main water off but there's a lot of standing water.</p>
+</div>
+<span class="text-[10px] text-outline mt-1 ml-1">11:44 AM • Jordan</span>
+</div>
+<!-- AI Audit Note -->
+<div class="mx-auto max-w-[90%] border-y border-white/5 py-3 flex items-start gap-4">
+<div class="bg-tertiary/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div>
+<h4 class="text-[11px] font-bold text-tertiary uppercase tracking-wider mb-1">AI Action: Address Logged</h4>
+<p class="text-[12px] text-on-surface-variant italic">Verified address: 1422 Oakwood Terrace. Estimated drive time for Tech #4: 18 minutes.</p>
+</div>
+</div>
+</div>
+<!-- Sticky Bottom Control Panel -->
+<div class="absolute bottom-0 left-0 w-full bg-surface-container-low/95 backdrop-blur-md p-6 border-t border-white/5 space-y-4">
+<!-- Quick Reply Chips -->
+<div class="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
+<button class="whitespace-nowrap bg-surface-container-highest hover:bg-surface-bright text-primary text-xs font-bold py-2 px-4 rounded-full transition-colors flex items-center gap-2">
+<span>📍 Ask Address</span>
+</button>
+<button class="whitespace-nowrap bg-surface-container-highest hover:bg-surface-bright text-primary text-xs font-bold py-2 px-4 rounded-full transition-colors flex items-center gap-2">
+<span>🚙 On My Way</span>
+</button>
+<button class="whitespace-nowrap bg-surface-container-highest hover:bg-surface-bright text-primary text-xs font-bold py-2 px-4 rounded-full transition-colors flex items-center gap-2">
+<span>💰 Quote Sent</span>
+</button>
+<button class="whitespace-nowrap bg-surface-container-highest hover:bg-surface-bright text-primary text-xs font-bold py-2 px-4 rounded-full transition-colors flex items-center gap-2">
+<span>❓ Any Insurance?</span>
+</button>
+</div>
+<!-- Draft Input Area -->
+<div class="relative group">
+<textarea class="w-full bg-surface-container-highest border-none rounded-2xl p-4 text-sm focus:ring-1 focus:ring-primary/50 text-on-surface placeholder:text-outline h-14 transition-all duration-300" placeholder="Draft a manual reply..."></textarea>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<!-- Primary Action Buttons -->
+<div class="grid grid-cols-3 gap-3">
+<button class="bg-surface-container-high hover:bg-surface-bright text-on-surface font-bold py-3 rounded-2xl flex flex-col items-center gap-1 transition-all">
+<span class="material-symbols-outlined text-lg">snooze</span>
+<span class="text-[10px] uppercase tracking-widest">Snooze</span>
+</button>
+<button class="bg-secondary-dim text-white font-bold py-3 rounded-2xl flex flex-col items-center gap-1 shadow-lg shadow-secondary/20 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-lg">front_hand</span>
+<span class="text-[10px] uppercase tracking-widest">Take Over</span>
+</button>
+<button class="bg-primary text-on-primary font-black py-3 rounded-2xl flex flex-col items-center gap-1 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="text-[10px] uppercase tracking-widest">Book Job</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Bottom Nav Bar (Shared Component Logic - Suppressed on Task-Focused Detail View but kept for reference architecture) -->
+<footer class="fixed bottom-0 left-0 w-full z-40 flex justify-around items-center px-4 pb-6 pt-3 bg-[#091328]/90 backdrop-blur-xl rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-white/5 md:hidden">
+<div class="flex flex-col items-center justify-center bg-indigo-500/15 text-indigo-300 rounded-2xl px-5 py-2 duration-200 ease-out">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">Leads</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 px-5 py-2 hover:text-indigo-200 transition-colors">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">Inbox</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 px-5 py-2 hover:text-indigo-200 transition-colors">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">Billing</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 px-5 py-2 hover:text-indigo-200 transition-colors">
+<span class="material-symbols-outlined">manage_accounts</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">Account</span>
+</div>
+</footer>
+</body></html>

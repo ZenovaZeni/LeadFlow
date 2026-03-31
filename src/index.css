@@ -1,0 +1,487 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   STITCH KINETIC UTILITIES
+   ============================================ */
+.tonal-transition {
+    background: linear-gradient(to bottom, #091328, #060e20);
+}
+.glass-card {
+    background: rgba(25, 37, 64, 0.4);
+    backdrop-filter: blur(20px);
+    border: none;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+.text-gradient {
+    background: linear-gradient(135deg, #818cf8 0%, #4F46E5 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.luxury-gap {
+    margin-bottom: 4rem;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ============================================
+   DESIGN SYSTEM — LeadFlow Elite
+   Premium Dark Theme / SaaS Grade (Stitch v2)
+   ============================================ */
+
+/* ---------- CSS Custom Properties ---------- */
+:root {
+  /* Colors */
+  --color-bg-primary: #060e20;
+  --color-bg-secondary: #091328;
+  --color-bg-card: #0f1930;
+  --color-bg-card-hover: #141f38;
+  --color-bg-elevated: #192540;
+  --color-bg-input: rgba(255, 255, 255, 0.03); /* Much lighter, "glassy" base */
+  --color-border: rgba(255,255,255,0.03); /* Faded even more */
+  --color-border-focus: rgba(79, 70, 229, 0.4);
+
+  --color-accent: #4f46e5;
+  --color-accent-hover: #6366f1;
+  --color-accent-light: #818cf8;
+  --color-accent-dark: #4338ca;
+  --color-accent-glow: rgba(79, 70, 229, 0.25);
+  --color-accent-soft: rgba(79, 70, 229, 0.1);
+  --color-success: #10b981;
+  --color-success-soft: rgba(16, 185, 129, 0.12);
+  --color-warning: #f59e0b;
+  --color-warning-soft: rgba(245, 158, 11, 0.12);
+  --color-danger: #ff6e84;
+  --color-danger-soft: rgba(255, 110, 132, 0.12);
+
+  --color-text-primary: #dee5ff; /* Stitch Precise Sanctuary Primary */
+  --color-text-secondary: #a3aac4;
+  --color-text-muted: #6d758c;
+  --color-text-inverse: #060e20;
+
+  /* Typography */
+  --font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-headline: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.8125rem;
+  --font-size-base: 0.9375rem;
+  --font-size-md: 1.0625rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  --font-size-4xl: 3.25rem;
+  --font-size-hero: 4rem;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Radii */
+  --radius-sm: 0.25rem; /* 4px */
+  --radius-md: 0.5rem;  /* 8px */
+  --radius-lg: 0.75rem; /* 12px */
+  --radius-xl: 1rem;    /* 16px */
+  --radius-2xl: 1.5rem; /* 24px */
+  --radius-3xl: 2rem;   /* 32px */
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.5);
+  --shadow-lg: 0 10px 50px rgba(0,0,0,0.6);
+  --shadow-glow: 0 0 30px var(--color-accent-glow);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.25s ease;
+  --transition-slow: 0.4s ease;
+}
+
+/* Light Mode Overview (Simplified for v2, pushing dark mode priority) */
+:root.light-mode {
+  --color-bg-primary: #f8fafc;
+  --color-bg-secondary: #f1f5f9;
+  --color-bg-card: #ffffff;
+  --color-bg-card-hover: #f8fafc;
+  --color-bg-elevated: #ffffff;
+  --color-bg-input: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748b;
+  --color-text-inverse: #ffffff;
+}
+
+/* Smooth transition for theme switching */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+body, div, .card, .nav, .dash-navbar, .dash-navbar-item, .dash-user-pill, .stat-card, .dash-sidebar, .dash-main, .dash-header-bar, .leads-table th, .leads-table td, .input, .btn-secondary, .faq-item {
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
+  /* iOS safe area support (notch, home bar) */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+body {
+  overflow-x: hidden;
+  /* Smooth momentum scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+a:hover { color: var(--color-accent-hover); }
+
+img { max-width: 100%; display: block; }
+
+button {
+  font-family: var(--font-family);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+input, textarea, select {
+  font-family: var(--font-family);
+  outline: none;
+}
+
+/* ---------- Utility Classes ---------- */
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.section {
+  padding: var(--space-24) 0;
+}
+
+.text-center { text-align: center; }
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-accent), #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+  box-shadow: var(--shadow-glow);
+}
+.btn-primary:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px var(--color-accent-glow), 0 4px 20px rgba(0,0,0,0.3);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 0 15px var(--color-accent-glow);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+.btn-secondary:hover {
+  border-color: rgba(255,255,255,0.15);
+  color: var(--color-text-primary);
+  background: rgba(255,255,255,0.02);
+  transform: translateY(-1px);
+}
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+.btn-lg {
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--font-size-md);
+  border-radius: var(--radius-lg);
+}
+
+/* ---------- Theme Toggle Button ---------- */
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.theme-toggle-btn:hover {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  transform: scale(1.05);
+}
+.theme-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              border-color 0.3s ease, 
+              background 0.3s ease, 
+              box-shadow 0.3s ease;
+}
+.card:hover {
+  border-color: rgba(79,110,247,0.15);
+  background: var(--color-bg-card-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(79,110,247,0.08);
+}
+
+/* ---------- Badges (Premium Soft Fills) ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: var(--color-text-primary);
+}
+
+.badge-accent { color: var(--color-accent); background: rgba(79, 110, 247, 0.15); }
+.badge-success { color: var(--color-success); background: rgba(52, 211, 153, 0.15); }
+.badge-warning { color: #f59e0b; background: rgba(245, 158, 11, 0.15); }
+.badge-danger { color: #ef4444; background: rgba(239, 68, 68, 0.15); }
+.badge-info { color: #0ea5e9; background: rgba(14, 165, 233, 0.15); }
+
+/* ---------- Inputs ---------- */
+.input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-input);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  transition: all var(--transition-base);
+}
+:root.light-mode .input {
+  border-top: 1px solid var(--color-border);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+.input:focus {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px var(--color-accent-glow), inset 0 2px 4px rgba(0,0,0,0.25);
+}
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  :root {
+    --font-size-hero: 2.25rem;
+    --font-size-4xl: 2rem;
+    --font-size-3xl: 1.75rem;
+  }
+  .section { padding: var(--space-16) 0; }
+  .container { padding: 0 var(--space-4); }
+}
+
+/* ---------- Animations ---------- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-fade-in-up { animation: fadeInUp 0.6s ease forwards; }
+.animate-fade-in { animation: fadeIn 0.5s ease forwards; }
+.animate-slide-in-right { animation: slideInRight 0.5s ease forwards; }
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(79, 70, 229, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(79, 70, 229, 0.4); }
+}
+
+.animate-scale-in { animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-glow { animation: glow 2s ease-in-out infinite; }
+
+/* Stagger children */
+.stagger > *:nth-child(1) { animation-delay: 0s; }
+.stagger > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger > *:nth-child(3) { animation-delay: 0.2s; }
+.stagger > *:nth-child(4) { animation-delay: 0.3s; }
+.stagger > *:nth-child(5) { animation-delay: 0.4s; }
+.stagger > *:nth-child(6) { animation-delay: 0.5s; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--color-text-muted); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-secondary); }
+
+/* ---------- Accessibility ---------- */
+
+/* Skip to content link */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--space-4);
+  z-index: 1000;
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: var(--space-4);
+  outline: none;
+}
+
+/* Focus-visible rings for keyboard users */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 👑 Native Mobile App Feel (Hide Scrollbars) */
+::-webkit-scrollbar {
+  display: none !important;
+}
+* {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}

@@ -1,0 +1,5 @@
+/* App-level layout */
+.app-root {
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+}

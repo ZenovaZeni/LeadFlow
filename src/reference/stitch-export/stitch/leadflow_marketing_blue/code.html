@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LeadFlow | The Kinetic Sanctuary for Lead Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-fixed": "#ffffff",
+                        "secondary": "#4F46E5",
+                        "primary-fixed": "#6366f1",
+                        "on-background": "#dee5ff",
+                        "on-tertiary-fixed-variant": "#1e1b4b",
+                        "surface-tint": "#4F46E5",
+                        "surface-container": "#0f1930",
+                        "on-primary-container": "#e0e7ff",
+                        "secondary-container": "#4F46E5",
+                        "primary": "#4F46E5",
+                        "surface-dim": "#060e20",
+                        "surface-container-lowest": "#000000",
+                        "primary-fixed-dim": "#4F46E5",
+                        "on-surface": "#dee5ff",
+                        "primary-dim": "#4338ca",
+                        "tertiary-fixed": "#818cf8",
+                        "on-primary": "#ffffff",
+                        "error-dim": "#d73357",
+                        "surface-container-highest": "#192540",
+                        "on-secondary-fixed-variant": "#3730a3",
+                        "inverse-on-surface": "#4d556b",
+                        "on-tertiary-fixed": "#e0e7ff",
+                        "on-error": "#490013",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#4F46E5",
+                        "outline": "#6d758c",
+                        "tertiary-dim": "#4F46E5",
+                        "on-surface-variant": "#a3aac4",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#ffffff",
+                        "tertiary": "#818cf8",
+                        "surface-variant": "#192540",
+                        "on-tertiary-container": "#e0e7ff",
+                        "error-container": "#a70138",
+                        "secondary-fixed-dim": "#818cf8",
+                        "inverse-surface": "#faf8ff",
+                        "tertiary-fixed-dim": "#818cf8",
+                        "surface-container-low": "#091328",
+                        "surface": "#060e20",
+                        "secondary-dim": "#4F46E5",
+                        "background": "#060e20",
+                        "surface-container-high": "#141f38",
+                        "on-error-container": "#ffb2b9",
+                        "on-primary-fixed-variant": "#3730a3",
+                        "inverse-primary": "#4F46E5",
+                        "outline-variant": "#40485d",
+                        "secondary-fixed": "#c7d2fe",
+                        "on-secondary-fixed": "#1e1b4b",
+                        "tertiary-container": "#4F46E5",
+                        "surface-bright": "#1f2b49",
+                        "error": "#ff6e84"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-transition {
+            background: linear-gradient(to bottom, #091328, #060e20);
+        }
+        .glass-card {
+            background: rgba(25, 37, 64, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(109, 117, 140, 0.1);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #818cf8 0%, #4F46E5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .luxury-gap {
+            margin-bottom: 4rem;
+        }
+        body {
+            background-color: #060e20;
+            color: #dee5ff;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#060e20]/80 backdrop-blur-xl">
+<div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-indigo-500 text-3xl" style="font-variation-settings: 'FILL' 1;">bubble_chart</span>
+<span class="text-2xl font-black bg-gradient-to-r from-[#818cf8] to-[#4F46E5] bg-clip-text text-transparent font-manrope tracking-tight">LeadFlow</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-indigo-500 font-semibold font-manrope" href="#">Product</a>
+<a class="text-slate-400 hover:text-indigo-400 transition-colors font-manrope" href="#">Solutions</a>
+<a class="text-slate-400 hover:text-indigo-400 transition-colors font-manrope" href="#">Pricing</a>
+<a class="text-slate-400 hover:text-indigo-400 transition-colors font-manrope" href="#">Resources</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden md:block text-slate-400 hover:text-indigo-400 transition-colors font-medium">Log In</button>
+<button class="bg-[#4F46E5] px-6 py-2.5 rounded-full text-white font-bold text-sm shadow-xl shadow-indigo-900/40 hover:scale-105 transition-transform">Get Started</button>
+</div>
+</div>
+</header>
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="relative px-6 py-20 max-w-7xl mx-auto overflow-hidden">
+<div class="grid lg:grid-cols-2 gap-12 items-center">
+<div class="z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-highest border border-outline-variant/20 mb-6">
+<span class="w-2 h-2 rounded-full bg-[#4F46E5] animate-pulse"></span>
+<span class="text-xs font-label uppercase tracking-widest text-indigo-400">Live Interaction Mode Active</span>
+</div>
+<h1 class="font-headline text-5xl lg:text-7xl font-extrabold leading-tight mb-6">
+                        Stop missing leads <span class="text-gradient">when you're busy.</span>
+</h1>
+<p class="text-lg text-on-surface-variant max-w-xl mb-10 leading-relaxed">
+                        The elite AI engine that captures, qualifies, and schedules every inbound lead while you're on the job. Turn missed calls into booked revenue effortlessly.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="bg-gradient-to-r from-[#6366f1] to-[#4F46E5] px-8 py-4 rounded-xl text-white font-extrabold flex items-center justify-center gap-2 group transition-all duration-300 active:scale-95 shadow-lg shadow-indigo-600/20">
+                            See How It Works
+                            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<button class="px-8 py-4 rounded-xl border border-outline-variant/30 font-bold hover:bg-white/5 transition-colors">
+                            Book a Demo
+                        </button>
+</div>
+</div>
+<div class="relative">
+<!-- Dashboard Mockup -->
+<div class="glass-card rounded-3xl p-4 shadow-2xl relative z-10 transform lg:rotate-2 hover:rotate-0 transition-transform duration-700">
+<img class="rounded-2xl w-full h-auto opacity-90" data-alt="Dark aesthetic SaaS dashboard showing clean data visualizations with vibrant indigo and blue charts and smooth glass textures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtDdX57LsfFbUiNFWK1UO9-n9VuGApRpvf63MkxAR3V5515i1YzUPEZW7iDHih4jvQgGTwLwT5j4BZgXE6DJLs0rBWoZ1xXsN8TZEXvJWCSjh5Ie14EiIG9mOs5g47UY72olpvx5Yp7dQqEUg8zmn83QJQ2Rli1OdQSiYyGmRFPUFQlMpZCsaSgU5MISp6F72tEMf9-4J6k9jfDyyWSE3wLmJPFFoSEvSN0lePo-df1sIH22GywXuugwkbkvTAQgb7RmHtjMeCWd-g"/>
+<!-- Floating Notification Bubbles -->
+<div class="absolute -top-6 -left-6 bg-surface-container p-4 rounded-2xl shadow-2xl border border-indigo-500/20 flex items-center gap-4 animate-bounce">
+<div class="w-12 h-12 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+<span class="material-symbols-outlined">person_add</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant uppercase font-bold tracking-tighter">New Qualified Lead</p>
+<p class="font-headline font-bold">Marcus J. (HVAC Repair)</p>
+</div>
+</div>
+<div class="absolute -bottom-10 -right-6 bg-surface-container-highest p-4 rounded-2xl shadow-2xl border border-indigo-500/20 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+<span class="material-symbols-outlined">calendar_today</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant uppercase font-bold tracking-tighter">Automated Booking</p>
+<p class="font-headline font-bold">Tomorrow at 2:00 PM</p>
+</div>
+</div>
+</div>
+<!-- Ambient Background Glow -->
+<div class="absolute -top-20 -right-20 w-96 h-96 bg-indigo-600/20 blur-[120px] rounded-full"></div>
+<div class="absolute -bottom-20 -left-20 w-80 h-80 bg-indigo-500/10 blur-[100px] rounded-full"></div>
+</div>
+</div>
+</section>
+<!-- Interactive Revenue Calculator -->
+<section class="luxury-gap px-6 py-24 bg-surface-container-low/50">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline text-4xl font-bold mb-4">The Cost of Silence</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto">Calculate how much revenue you're leaving on the table every month by not capturing missed calls.</p>
+</div>
+<div class="grid lg:grid-cols-5 gap-8 items-start">
+<div class="lg:col-span-3 space-y-12 bg-surface-container p-8 lg:p-12 rounded-3xl">
+<!-- Sliders -->
+<div class="space-y-6">
+<div class="flex justify-between items-center">
+<label class="font-manrope font-semibold text-lg">Missed Leads Per Month</label>
+<span class="text-indigo-400 font-bold text-2xl">45</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-indigo-500" max="200" min="0" type="range" value="45"/>
+</div>
+<div class="space-y-6">
+<div class="flex justify-between items-center">
+<label class="font-manrope font-semibold text-lg">Average Job Value</label>
+<span class="text-indigo-400 font-bold text-2xl">$1,250</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-indigo-500" max="10000" min="100" type="range" value="1250"/>
+</div>
+<div class="space-y-6">
+<div class="flex justify-between items-center">
+<label class="font-manrope font-semibold text-lg">Closing Rate (%)</label>
+<span class="text-indigo-400 font-bold text-2xl">35%</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-indigo-500" max="100" min="1" type="range" value="35"/>
+</div>
+</div>
+<div class="lg:col-span-2 h-full">
+<div class="bg-gradient-to-br from-indigo-900/40 to-blue-900/40 border border-white/5 rounded-3xl p-10 h-full flex flex-col justify-center items-center text-center">
+<p class="text-on-surface-variant uppercase tracking-[0.2em] text-xs font-bold mb-4">Estimated Monthly Leakage</p>
+<div class="text-6xl font-headline font-black text-white mb-6">$19,687</div>
+<p class="text-indigo-200/70 mb-10 leading-relaxed">Stop the bleed. LeadFlow captures and closes these opportunities for a fraction of the cost.</p>
+<button class="w-full bg-white text-surface-dim px-8 py-4 rounded-xl font-extrabold hover:bg-indigo-500 hover:text-white transition-colors">Plug the Leak Now</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Chat Simulator & Visual Proof -->
+<section class="max-w-7xl mx-auto px-6 py-24 mb-24">
+<div class="grid lg:grid-cols-2 gap-20 items-center">
+<div class="order-2 lg:order-1">
+<div class="relative max-w-sm mx-auto">
+<!-- iPhone Frame Simulation -->
+<div class="rounded-[3rem] border-8 border-surface-container-highest bg-surface-dim h-[700px] w-full shadow-2xl relative overflow-hidden">
+<!-- Status Bar -->
+<div class="h-8 flex justify-between items-center px-8 pt-2">
+<span class="text-[10px] font-bold">9:41</span>
+<div class="flex gap-1.5 items-center">
+<span class="material-symbols-outlined text-[12px]">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[12px]">wifi</span>
+<span class="material-symbols-outlined text-[12px]">battery_full</span>
+</div>
+</div>
+<!-- Chat Header -->
+<div class="p-6 border-b border-white/5 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#6366f1] to-[#4F46E5] flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<p class="text-sm font-bold">LeadFlow Assistant</p>
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+<span class="text-[10px] text-on-surface-variant font-medium">Live Qualify Mode</span>
+</div>
+</div>
+</div>
+<!-- Messages Area -->
+<div class="p-4 space-y-4">
+<div class="flex justify-start">
+<div class="bg-surface-container-high p-4 rounded-2xl rounded-tl-none max-w-[80%] text-sm">
+                                        "Hi! I'm calling about the leak in my basement. Are you available today?"
+                                    </div>
+</div>
+<div class="flex justify-end">
+<div class="bg-[#4F46E5] p-4 rounded-2xl rounded-tr-none max-w-[80%] text-sm text-white shadow-lg shadow-indigo-900/20">
+                                        "I can certainly help with that. Our technicians are in your area. To give you an accurate quote, how many rooms are affected?"
+                                    </div>
+</div>
+<div class="flex justify-start">
+<div class="bg-surface-container-high p-4 rounded-2xl rounded-tl-none max-w-[80%] text-sm">
+                                        "Just the main utility room. It's about 150 sq ft."
+                                    </div>
+</div>
+<div class="flex justify-end">
+<div class="bg-[#4F46E5] p-4 rounded-2xl rounded-tr-none max-w-[80%] text-sm text-white shadow-lg shadow-indigo-900/20">
+                                        "Got it. I have a slot open today at 4 PM for an inspection. Should I book that for you?"
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="order-1 lg:order-2">
+<h2 class="font-headline text-4xl lg:text-5xl font-extrabold mb-8 leading-tight">
+                        Conversations that <br/><span class="text-[#4F46E5]">Close Themselves.</span>
+</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed mb-12">
+                        Our AI doesn't just "chat"—it calculates, qualifies, and converts. It handles complex scheduling logic and handles follow-ups across SMS and Email automatically.
+                    </p>
+<ul class="space-y-8">
+<li class="flex items-start gap-4">
+<div class="mt-1 w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<div>
+<h4 class="font-manrope font-bold">Instant SMS Response</h4>
+<p class="text-sm text-on-surface-variant">The AI texts back within 15 seconds of a missed call.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="mt-1 w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<div>
+<h4 class="font-manrope font-bold">Deep Qualification</h4>
+<p class="text-sm text-on-surface-variant">Filters out "tire kickers" by asking your specific intake questions.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="mt-1 w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<div>
+<h4 class="font-manrope font-bold">Direct Calendar Sync</h4>
+<p class="text-sm text-on-surface-variant">Seamlessly integrates with Google, Outlook, and Jobber.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Final CTA Section -->
+<section class="max-w-7xl mx-auto px-6 mb-24">
+<div class="bg-surface-container rounded-[3rem] p-12 lg:p-24 text-center relative overflow-hidden border border-white/5">
+<div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+<div class="absolute -top-1/2 -left-1/4 w-[150%] h-[150%] bg-gradient-to-br from-indigo-600 via-transparent to-indigo-800 blur-[150px]"></div>
+</div>
+<div class="relative z-10">
+<h2 class="font-headline text-4xl lg:text-6xl font-extrabold mb-8">Ready to reclaim your <br/>lost revenue?</h2>
+<p class="text-on-surface-variant text-xl mb-12 max-w-2xl mx-auto">Join over 500 service businesses scaling their operations with LeadFlow kinetic automation.</p>
+<div class="flex flex-col sm:flex-row gap-6 justify-center">
+<button class="bg-white text-surface-dim px-10 py-5 rounded-2xl font-black text-lg hover:scale-105 transition-transform duration-300">Get Early Access</button>
+<button class="bg-surface-container-highest border border-outline-variant/30 text-white px-10 py-5 rounded-2xl font-bold text-lg hover:bg-white/5 transition-colors">Talk to Sales</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 border-t border-white/5 bg-[#060e20]">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto gap-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-400">bubble_chart</span>
+<span class="text-indigo-400 font-bold text-lg">LeadFlow Kinetic</span>
+</div>
+<div class="flex gap-8">
+<a class="text-slate-600 hover:text-indigo-400 transition-colors text-xs font-body" href="#">Privacy Policy</a>
+<a class="text-slate-600 hover:text-indigo-400 transition-colors text-xs font-body" href="#">Terms of Service</a>
+<a class="text-slate-600 hover:text-indigo-400 transition-colors text-xs font-body" href="#">API Docs</a>
+<a class="text-slate-600 hover:text-indigo-400 transition-colors text-xs font-body" href="#">Support</a>
+</div>
+<p class="text-slate-500 text-xs font-body">© 2024 LeadFlow Kinetic. All rights reserved.</p>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<div class="md:hidden fixed bottom-0 w-full z-50 rounded-t-3xl bg-[#091328]/90 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+<div class="flex justify-around items-center h-20 px-4 pb-2">
+<div class="flex flex-col items-center justify-center text-indigo-400 bg-indigo-500/10 rounded-xl px-4 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-inter text-[11px] font-medium uppercase tracking-wider mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 hover:text-indigo-400 transition-all duration-300">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-inter text-[11px] font-medium uppercase tracking-wider mt-1">Chat</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 hover:text-indigo-400 transition-all duration-300">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-inter text-[11px] font-medium uppercase tracking-wider mt-1">AI</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 hover:text-indigo-400 transition-all duration-300">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-inter text-[11px] font-medium uppercase tracking-wider mt-1">Account</span>
+</div>
+</div>
+</div>
+</body></html>
