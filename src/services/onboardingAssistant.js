@@ -1,6 +1,6 @@
 import { supabase } from '../lib/supabase';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL || ''; // Empty string in prod means relative to the current domain
 
 export const onboardingAssistant = {
   async startScrape(companyName, websiteUrl, onStatusUpdate) {

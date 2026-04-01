@@ -58,7 +58,7 @@ export default function AppDashboard({ tab, onTabChange, onLogout, theme, toggle
   const [aiNiche, setAiNiche] = useState('General')
   
   // 👑 ADMIN STATE
-    const isAdmin = user?.email === 'jdouglas8585@gmail.com' || user?.email === 'officialzenovaai@gmail.com' || user?.email === 'demo@demo.com'
+  const isAdmin = !isDemo && (user?.email === 'jdouglas8585@gmail.com' || user?.email === 'officialzenovaai@gmail.com')
 
   const [impersonatedBiz, setImpersonatedBiz] = useState(null) // { id, name }
   const activeBusinessId = impersonatedBiz ? impersonatedBiz.id : businessId
@@ -109,14 +109,19 @@ export default function AppDashboard({ tab, onTabChange, onLogout, theme, toggle
           <div className="flex items-center gap-3">
             <span className="material-symbols-outlined text-indigo-500 text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>bubble_chart</span>
             <span className="text-2xl font-black bg-gradient-to-r from-[#818cf8] to-[#4F46E5] bg-clip-text text-transparent font-headline tracking-tight">LeadFlow</span>
+            {isDemo && (
+              <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-black text-indigo-400 uppercase tracking-[0.2em] animate-pulse ml-2">
+                Demo Mode
+              </span>
+            )}
           </div>
           <nav className="hidden md:flex gap-8 items-center">
             {tabs.map(t => (
               <button key={t.id} className={`transition-colors font-headline text-sm font-semibold ${currentTab === t.id ? 'text-indigo-500' : 'text-slate-400 hover:text-indigo-400'}`} onClick={() => onTabChangeInternal(t.id)}>{t.label}</button>
             ))}
-            {isAdmin && (
+            {isAdmin && !isDemo && (
               <button 
-                className={`transition-all font-headline text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 rounded-xl border ${currentTab === 'admin' ? 'border-amber-500/50 text-amber-500 bg-amber-500/5' : 'border-white/5 text-slate-500 hover:text-amber-400 hover:border-amber-500/20'}`} 
+                className={`transition-all font-headline text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 rounded-xl border focus:ring-0 focus:outline-none ${currentTab === 'admin' ? 'border-amber-500/50 text-amber-500 bg-amber-500/5' : 'border-white/5 text-slate-500 hover:text-amber-400 hover:border-amber-500/20'}`} 
                 onClick={() => onTabChangeInternal('admin')}
               >
                 Admin Hub
@@ -171,7 +176,7 @@ export default function AppDashboard({ tab, onTabChange, onLogout, theme, toggle
             businessId={activeBusinessId}
           />
         )}
-        {currentTab === 'admin' && isAdmin && (
+        {currentTab === 'admin' && isAdmin && !isDemo && (
           <AdminDashboard 
             onImpersonate={(biz) => {
               setImpersonatedBiz(biz);

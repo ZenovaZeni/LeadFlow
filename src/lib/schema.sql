@@ -9,6 +9,9 @@ CREATE TABLE IF NOT EXISTS businesses (
   name TEXT NOT NULL,
   email TEXT,
   phone TEXT,
+  ai_niche TEXT DEFAULT 'General',
+  brand_tone TEXT DEFAULT 'professional',
+  short_summary TEXT,
   missed_call_enabled BOOLEAN DEFAULT TRUE,
   vacation_mode BOOLEAN DEFAULT FALSE,
   after_hours_mode BOOLEAN DEFAULT TRUE,
@@ -18,6 +21,7 @@ CREATE TABLE IF NOT EXISTS businesses (
   ai_rules JSONB DEFAULT '{"bio": "", "goal": "", "custom_rules": ""}'::jsonb,
   business_hours JSONB DEFAULT '{"monday": {"open": "08:00", "close": "17:00", "closed": false}, "tuesday": {"open": "08:00", "close": "17:00", "closed": false}, "wednesday": {"open": "08:00", "close": "17:00", "closed": false}, "thursday": {"open": "08:00", "close": "17:00", "closed": false}, "friday": {"open": "08:00", "close": "17:00", "closed": false}, "saturday": {"open": "00:00", "close": "00:00", "closed": true}, "sunday": {"open": "00:00", "close": "00:00", "closed": true}}'::jsonb,
   operational_bounds JSONB DEFAULT '{"min_ticket": "$500", "service_fee": "$99", "service_radii": ""}'::jsonb,
+  workflow JSONB DEFAULT '{"missed_call_msg": "", "after_hours_msg": "", "booking_prompt": "", "urgency_keywords": "emergency, urgent"}'::jsonb,
   integrations JSONB DEFAULT '{"cal_com": {"enabled": false, "api_key": null, "service_mappings": {}}}'::jsonb,
   telnyx_phone_number TEXT UNIQUE, -- The Telnyx number assigned to this client
   has_trained_ai BOOLEAN DEFAULT FALSE,
@@ -42,12 +46,14 @@ CREATE TABLE IF NOT EXISTS leads (
   email TEXT,
   service TEXT,
   summary TEXT,
-  status TEXT DEFAULT 'new', -- 'new', 'waiting', 'booked', 'ai_handling'
+  status TEXT DEFAULT 'new', -- 'new', 'waiting', 'booked', 'ai_handling', 'unresponded'
   status_label TEXT DEFAULT 'New Lead',
   temperature TEXT DEFAULT 'Cold',
   is_urgent BOOLEAN DEFAULT FALSE,
   voicemail_transcript TEXT,
   ai_summary TEXT,
+  conversation JSONB DEFAULT '[]'::jsonb,
+  last_message_time TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -220,17 +226,43 @@ WITH CHECK (
   business_id IN (
     SELECT id FROM businesses WHERE user_id = auth.uid()
   )
+);
+
 -- 8. Onboarding Drafts (The Drafting Assistant)
 CREATE TABLE IF NOT EXISTS onboarding_drafts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   business_name TEXT NOT NULL,
   website_url TEXT NOT NULL,
+  -- Location
   city TEXT,
   state TEXT,
+  -- Classification
   niche TEXT DEFAULT 'General',
+  industry TEXT,
+  sub_industry TEXT,
+  -- Contact
+  business_phone TEXT,
+  business_email TEXT,
+  -- Profile
+  brand_tone TEXT,
+  short_business_summary TEXT,
+  service_area_text TEXT,
+  business_hours JSONB,
+  services_offered JSONB DEFAULT '[]'::jsonb,
+  -- AI Config
+  primary_goal TEXT,
+  missed_call_message TEXT,
+  after_hours_message TEXT,
+  booking_prompt TEXT,
+  hard_response_rules JSONB DEFAULT '[]'::jsonb,
+  handoff_keywords JSONB DEFAULT '[]'::jsonb,
+  qualification_questions JSONB DEFAULT '[]'::jsonb,
+  faq_entries JSONB DEFAULT '[]'::jsonb,
+  -- Meta
   scrape_data JSONB DEFAULT '{}',
   scrape_confidence_score FLOAT DEFAULT 0.0,
-  draft_status TEXT DEFAULT 'scraping', -- 'scraping', 'review_ready', 'activated'
+  error_message TEXT,
+  draft_status TEXT DEFAULT 'scraping', -- 'queued', 'scraping_site', 'extracting_profile', 'review_ready', 'activated', 'failed'
   activated_business_id UUID REFERENCES businesses(id),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -249,3 +281,37 @@ WITH CHECK (
   auth.jwt() ->> 'email' IN ('jdouglas8585@gmail.com', 'officialzenovaai@gmail.com')
 );
 
+-- ============================================
+-- MIGRATION: Add missing columns to existing tables
+-- Run these in Supabase SQL Editor if tables already exist
+-- ============================================
+
+-- businesses: new columns
+ALTER TABLE businesses ADD COLUMN IF NOT EXISTS ai_niche TEXT DEFAULT 'General';
+ALTER TABLE businesses ADD COLUMN IF NOT EXISTS brand_tone TEXT DEFAULT 'professional';
+ALTER TABLE businesses ADD COLUMN IF NOT EXISTS short_summary TEXT;
+ALTER TABLE businesses ADD COLUMN IF NOT EXISTS workflow JSONB DEFAULT '{"missed_call_msg": "", "after_hours_msg": "", "booking_prompt": "", "urgency_keywords": "emergency, urgent"}'::jsonb;
+
+-- leads: new columns
+ALTER TABLE leads ADD COLUMN IF NOT EXISTS conversation JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE leads ADD COLUMN IF NOT EXISTS last_message_time TEXT;
+
+-- onboarding_drafts: new columns (if table already exists without them)
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS industry TEXT;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS sub_industry TEXT;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS business_phone TEXT;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS business_email TEXT;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS brand_tone TEXT;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS short_business_summary TEXT;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS service_area_text TEXT;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS business_hours JSONB;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS services_offered JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS primary_goal TEXT;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS missed_call_message TEXT;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS after_hours_message TEXT;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS booking_prompt TEXT;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS hard_response_rules JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS handoff_keywords JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS qualification_questions JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS faq_entries JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE onboarding_drafts ADD COLUMN IF NOT EXISTS error_message TEXT;

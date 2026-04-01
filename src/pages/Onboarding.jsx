@@ -172,7 +172,7 @@ export default function Onboarding() {
       // Cleanup onboarding state
       localStorage.removeItem('onboarding_data')
       localStorage.removeItem('onboarding_step')
-      navigate('/app')
+      navigate(user ? '/app' : '/demo/dashboard')
     } catch (err) {
       console.error('Skip failed:', err)
       navigate('/app') // Proceed anyway

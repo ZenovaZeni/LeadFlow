@@ -782,11 +782,238 @@ export async function updateBusinessAdmin(id, updates) {
   
   const { error } = await supabase
     .from('businesses')
-    .update(updates)
+    .update({ 
+      ...updates,
+      updated_at: new Date().toISOString()
+    })
     .eq('id', id)
 
   if (error) throw error
   return true
+}
+
+/**
+ * OPERATIONAL DASHBOARD QUERIES
+ */
+
+export async function getAdminOperationalStats() {
+  if (isPlaceholder()) return {
+    activeClients: 8,
+    draftsAwaitingReview: 3,
+    clientsInOnboarding: 2,
+    clientsMissingNumber: 1,
+    clientsMissingWebhook: 1,
+    clientsAwaitingQA: 2,
+    failedWebhooksToday: 0,
+    messagesSentToday: 145,
+    missedCallsRecoveredToday: 12
+  };
+
+  try {
+    const today = new Date().toISOString().split('T')[0];
+
+    // 1. Active Clients (Business Status: Live)
+    const { count: activeClients } = await supabase
+      .from('businesses')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'Live');
+
+    // 2. Drafts Awaiting Review
+    const { count: draftsAwaitingReview } = await supabase
+      .from('onboarding_drafts')
+      .select('*', { count: 'exact', head: true })
+      .eq('draft_status', 'Needs Review');
+
+    // 3. Clients In Onboarding
+    const { count: clientsInOnboarding } = await supabase
+      .from('onboarding_drafts')
+      .select('*', { count: 'exact', head: true })
+      .in('draft_status', ['Ready for Onboarding', 'Ready to Activate']);
+
+    // 4. Clients Missing Number
+    const { count: clientsMissingNumber } = await supabase
+      .from('businesses')
+      .select('*', { count: 'exact', head: true })
+      .is('telnyx_phone_number', null);
+
+    // 5. Failed Webhooks Today
+    const { count: failedWebhooksToday } = await supabase
+      .from('webhook_logs')
+      .select('*', { count: 'exact', head: true })
+      .eq('outcome_status', 'failed')
+      .gte('created_at', today);
+
+    // 6. Messages Sent Today (Assistant role in conversation)
+    const { data: leads } = await supabase
+      .from('leads')
+      .select('conversation')
+      .gte('updated_at', today);
+    
+    let messagesSentToday = 0;
+    leads?.forEach(l => {
+      const msgs = l.conversation || [];
+      messagesSentToday += msgs.filter(m => m.role === 'assistant').length;
+    });
+
+    // 7. Missed Calls handled (Calls not answered but lead exists)
+    const { count: missedCallsToday } = await supabase
+      .from('calls')
+      .select('*', { count: 'exact', head: true })
+      .eq('is_answered', false)
+      .gte('created_at', today);
+
+    return {
+      activeClients: activeClients || 0,
+      draftsAwaitingReview: draftsAwaitingReview || 0,
+      clientsInOnboarding: clientsInOnboarding || 0,
+      clientsMissingNumber: clientsMissingNumber || 0,
+      clientsMissingWebhook: 0, 
+      clientsAwaitingQA: 0,
+      failedWebhooksToday: failedWebhooksToday || 0,
+      messagesSentToday: messagesSentToday || 0,
+      missedCallsRecoveredToday: missedCallsToday || 0
+    };
+  } catch (err) {
+    console.error('Operational Stats error:', err);
+    return null;
+  }
+}
+
+export async function getRecentOnboardingDrafts(limit = 5) {
+  if (isPlaceholder()) return [
+    { id: 'd1', business_name: 'Acme Plumbing', draft_status: 'In Progress', updated_at: new Date().toISOString() },
+    { id: 'd2', business_name: 'Stark Industries', draft_status: 'Needs Review', updated_at: new Date().toISOString() }
+  ];
+
+  const { data, error } = await supabase
+    .from('onboarding_drafts')
+    .select('id, business_name, draft_status, updated_at')
+    .order('updated_at', { ascending: false })
+    .limit(limit);
+  
+  if (error) throw error;
+  return data;
+}
+
+export async function getActionQueue() {
+  if (isPlaceholder()) return [
+    { title: 'Review scraped draft', target: 'Acme Plumbing', type: 'draft_review', priority: 'high' },
+    { title: 'Assign Telnyx number', target: 'Joe Tree Service', type: 'phone_setup', priority: 'medium' }
+  ];
+
+  try {
+    const actions = [];
+    const { data: drafts } = await supabase
+      .from('onboarding_drafts')
+      .select('id, business_name')
+      .eq('draft_status', 'Needs Review');
+    drafts?.forEach(d => actions.push({ id: d.id, title: 'Review scraped draft', target: d.business_name, type: 'draft_review', priority: 'high' }));
+
+    const { data: missingNumbers } = await supabase
+      .from('businesses')
+      .select('id, name')
+      .is('telnyx_phone_number', null);
+    missingNumbers?.forEach(b => actions.push({ id: b.id, title: 'Assign Telnyx number', target: b.name, type: 'phone_setup', priority: 'medium' }));
+
+    return actions;
+  } catch (err) { return []; }
+}
+
+export async function createManualDraft(draftData) {
+  if (isPlaceholder()) return { id: 'manual-draft', ...draftData, draft_status: 'Needs Review' };
+  const { data, error } = await supabase.from('onboarding_drafts').insert([{ ...draftData, is_manual: true, draft_status: 'Needs Review' }]).select().single();
+  if (error) throw error;
+  return data;
+}
+
+export async function updateDraftStatus(id, draft_status, extra = {}) {
+  const { data, error } = await supabase.from('onboarding_drafts').update({ draft_status, ...extra }).eq('id', id).select().single();
+  if (error) throw error;
+  return data;
+}
+
+
+export async function saveDraftStep(id, updates) {
+  if (isPlaceholder()) return { id, ...updates };
+  const { data, error } = await supabase
+    .from('onboarding_drafts')
+    .update({ ...updates, updated_at: new Date().toISOString() })
+    .eq('id', id)
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function activateClient(draftId) {
+  if (isPlaceholder()) return { success: true, businessId: 'new-biz-123' };
+  
+  // 1. Fetch draft info
+  const { data: draft, error: draftErr } = await supabase
+    .from('onboarding_drafts')
+    .select('*')
+    .eq('id', draftId)
+    .single();
+  if (draftErr) throw draftErr;
+
+  // 2. Create business entry
+  const bizData = {
+    name: draft.business_name,
+    email: draft.business_email,
+    phone: draft.business_phone,
+    telnyx_phone_number: draft.telnyx_phone_number || null,
+    brand_tone: draft.brand_tone,
+    short_summary: draft.short_business_summary,
+    cta_style: draft.cta_style,
+    missed_call_message: draft.missed_call_message,
+    after_hours_message: draft.after_hours_message,
+    ai_niche: draft.industry,
+    ai_rules: {
+      bio: draft.company_background,
+      goal: draft.primary_goal,
+      custom_rules: draft.hard_response_rules?.join('\n') || ''
+    },
+    workflow: {
+      booking_url: draft.booking_url,
+      handoff_keywords: draft.handoff_keywords || []
+    },
+    status: 'Live',
+    activated_at: new Date().toISOString()
+  };
+
+  const { data: biz, error: bizErr } = await supabase
+    .from('businesses')
+    .insert([bizData])
+    .select()
+    .single();
+  if (bizErr) throw bizErr;
+
+  // 3. Update draft with activated business ID and mark as Completed
+  await supabase
+    .from('onboarding_drafts')
+    .update({ 
+      draft_status: 'Completed', 
+      activated_business_id: biz.id 
+    })
+    .eq('id', draftId);
+
+  return { success: true, businessId: draft.id };
+}
+
+export async function getRecentOnboardingDrafts(limit = 5) {
+  if (isPlaceholder()) return [
+    { id: '1', business_name: 'Acme Plumbing', draft_status: 'Onboarding (2/6)', updated_at: new Date().toISOString() },
+    { id: '2', business_name: 'Joe Tree Service', draft_status: 'Ready to Activate', updated_at: new Date().toISOString() }
+  ];
+
+  const { data, error } = await supabase
+    .from('onboarding_drafts')
+    .select('*')
+    .order('updated_at', { ascending: false })
+    .limit(limit);
+
+  if (error) throw error;
+  return data;
 }
 
 /**
@@ -839,7 +1066,7 @@ export async function createDraftWithFirecrawl(websiteUrl) {
           raw: content
         },
         scrape_confidence_score: 0.85,
-        draft_status: 'review_ready'
+        draft_status: 'Needs Review'
       })
       .eq('id', draft.id)
       .select()
@@ -853,42 +1080,32 @@ export async function createDraftWithFirecrawl(websiteUrl) {
     throw err
   }
 }
+export async function getRecentErrors(limit = 10) {
+  if (isPlaceholder()) return [
+    { id: '1', status: 'Error', service: 'SMS', message: 'Telnyx Rate Limit', created_at: new Date().toISOString() },
+    { id: '2', status: 'Error', service: 'AI', message: 'Gemini Context Overflow', created_at: new Date().toISOString() }
+  ];
 
-export async function activateDraft(draftId) {
-  if (isPlaceholder()) return { businessId: 'mock-biz' }
-
-  // 1. Get Draft Data
-  const { data: draft, error: fetchError } = await supabase
-    .from('onboarding_drafts')
+  const { data, error } = await supabase
+    .from('webhook_logs')
     .select('*')
-    .eq('id', draftId)
-    .single()
+    .ilike('status', 'Error')
+    .order('created_at', { ascending: false })
+    .limit(limit);
 
-  if (fetchError) throw fetchError
+  if (error) throw error;
+  return data;
+}
 
-  // 2. Create Live Business
-  const { data: biz, error: bizError } = await supabase
-    .from('businesses')
-    .insert([{
-      name: draft.business_name,
-      ai_niche: draft.niche,
-      ai_rules: {
-        bio: draft.scrape_data?.bio || 'Professional local services'
-      }
-    }])
+export async function toggleGlobalPause(isPaused) {
+  if (isPlaceholder()) return { success: true, is_paused: isPaused };
+
+  const { data, error } = await supabase
+    .from('system_config') // Assuming a system_config table exists
+    .upsert([{ key: 'global_pause', value: isPaused }])
     .select()
-    .single()
+    .single();
 
-  if (bizError) throw bizError
-
-  // 3. Update Draft to Activated
-  await supabase
-    .from('onboarding_drafts')
-    .update({ 
-      draft_status: 'activated', 
-      activated_business_id: biz.id 
-    })
-    .eq('id', draftId)
-
-  return { businessId: biz.id }
+  if (error) throw error;
+  return data;
 }

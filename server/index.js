@@ -13,10 +13,22 @@ const supabaseUrl = process.env.SUPABASE_URL || 'https://placeholder.supabase.co
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 'placeholder_key';
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-import { getOrCreateLead, appendMessage, getBusinessByPhone } from './lib/db_handler.js';
+import { 
+  getOrCreateLead, 
+  appendMessage, 
+  getBusinessByPhone, 
+  createCallRecord, 
+  updateCallStatus, 
+  markCallAnswered, 
+  getCallRecord, 
+  logWebhook 
+} from './lib/db_handler.js';
 import { generateResponse } from './lib/ai_handler.js';
 import { sendSms } from './lib/sms_handler.js';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import Telnyx from 'telnyx';
+
+const telnyx = new Telnyx(process.env.TELNYX_API_KEY || 'placeholder_api_key');
 
 // --- Health Check ---
 app.get('/api/health', (req, res) => {
@@ -210,35 +222,140 @@ app.post('/api/admin/create-client', async (req, res) => {
   }
 });
 
+// --- Admin: Test AI (Simulator) ---
+app.post('/api/admin/test-ai', async (req, res) => {
+  const { message, config } = req.body;
+
+  try {
+    const aiResponse = await generateResponse(message, {
+      businessName: config.businessName || 'Test Business',
+      services: config.services?.join(', ') || 'general services',
+      tone: config.tone || 'professional',
+      bio: config.bio || '',
+      customRules: config.customRules || ''
+    });
+
+    res.json({ success: true, response: aiResponse });
+  } catch (err) {
+    console.error('Test AI error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 // --- Telnyx Webhook ---
 app.post('/api/webhooks/telnyx', async (req, res) => {
   const payload = req.body;
+  const eventId = payload.data?.id;
+  const eventType = payload.data?.event_type;
+
+  // 1. Return 200 OK fast
+  res.status(200).json({ status: 'received' });
+
+  // 2. Signature verification (Day-One Reliability)
+  const signature = req.headers['telnyx-signature-ed25519'];
+  const timestamp = req.headers['telnyx-timestamp'];
+  const publicKey = process.env.TELNYX_PUBLIC_KEY;
+
+  if (publicKey && signature && timestamp) {
+    try {
+      telnyx.webhooks.constructEvent(JSON.stringify(payload), signature, timestamp, publicKey);
+    } catch (err) {
+      console.error('⚠️ Telnyx Signature Verification Failed:', err.message);
+      return; // Stop processing unverified webhooks if public key is set
+    }
+  }
 
   try {
-    const eventType = payload.data?.event_type;
+    const messageData = payload.data?.payload;
+    if (!messageData) return;
+
+    const callControlId = messageData.call_control_id;
+    const fromNumber = messageData.from?.phone_number || messageData.from;
+    const toNumber = (messageData.to?.[0]?.phone_number || messageData.to) || '';
+
+    // 3. Deduplication & Logging
+    // We try to log the webhook; if it returns 'duplicate', we skip the logic.
+    const logStatus = await logWebhook({
+      eventId,
+      eventType,
+      payload,
+      outcomeStatus: 'processing'
+    });
+
+    if (logStatus === 'duplicate') {
+      console.log(`♻️ Duplicate event ignored: ${eventId}`);
+      return;
+    }
+
+    // --- CALL EVENTS ---
+
+    if (eventType === 'call.initiated') {
+      console.log(`📞 Inbound Call from ${fromNumber} to ${toNumber}`);
+      const business = await getBusinessByPhone(toNumber);
+      
+      if (business) {
+        // Record initiated call
+        await createCallRecord({
+          callControlId,
+          callSessionId: messageData.call_session_id,
+          businessId: business.id,
+          fromNumber,
+          toNumber
+        });
+
+        // Use Call Control to "Answer" then "Dial" (forwarding)
+        // This gives us explicit events for the entire session.
+        await telnyx.calls.answer(callControlId);
+        
+        // Forwarding logic: we simulate forwarding by dialing out.
+        // For a true GTM setup, the user will configure the "Dial" action toJoe's actual cell.
+        // Since we don't have Joe's number yet, we'll just log it.
+        console.log(`⏩ Call Control: Ready to dial forwarding for ${business.name}`);
+      }
+    }
+
+    if (eventType === 'call.answered') {
+      console.log(`✅ Call Answered: ${callControlId}`);
+      await markCallAnswered(callControlId);
+    }
+
+    if (eventType === 'call.hangup') {
+      console.log(`🛑 Call Hangup: ${callControlId}`);
+      
+      // Update status
+      await updateCallStatus(callControlId, 'hungup');
+
+      // Check if it was a MISSED call
+      const callData = await getCallRecord(callControlId);
+      if (callData && !callData.is_answered) {
+        console.log(`🚨 MISSED CALL DETECTED for ${callData.to_number}. Triggering SMS response...`);
+        
+        const business = await getBusinessByPhone(callData.to_number);
+        if (business && business.workflow?.missed_call_msg) {
+          const smsText = business.workflow.missed_call_msg;
+          await sendSms(callData.from_number, smsText, callData.to_number);
+          
+          // Log as a lead interaction
+          const lead = await getOrCreateLead(callData.from_number, business.id);
+          await appendMessage(lead.id, 'assistant', `[Missed Call Auto-Reply] ${smsText}`);
+        }
+      }
+    }
+
+    // --- SMS EVENTS ---
 
     if (eventType === 'message.received') {
-      const messageData = payload.data.payload;
-      const fromNumber = messageData.from.phone_number;
-      const toNumber = messageData.to?.[0]?.phone_number;
       const messageBody = messageData.text;
-
       console.log(`📩 SMS from ${fromNumber} to ${toNumber}: "${messageBody}"`);
 
-      // 1. Look up which business owns this Telnyx number
       const business = await getBusinessByPhone(toNumber);
-      if (!business) {
-        console.warn(`⚠️ No business found for number ${toNumber} — dropping message`);
-        return res.status(200).json({ status: 'unrouted' });
-      }
+      if (!business) return;
 
-      // 2. Get or create lead tied to this business
       const lead = await getOrCreateLead(fromNumber, business.id);
-
-      // 3. Log incoming message
       await appendMessage(lead.id, 'user', messageBody);
 
-      // 4. Generate AI response using this business's config
+      // AI Response Logic
       const aiResponse = await generateResponse(messageBody, {
         businessName: business.name,
         services: business.operational_bounds?.services || 'general services',
@@ -248,18 +365,20 @@ app.post('/api/webhooks/telnyx', async (req, res) => {
       });
 
       console.log(`🤖 AI Reply for ${business.name}: "${aiResponse}"`);
-
-      // 5. Send SMS back from the business's Telnyx number
       await sendSms(fromNumber, aiResponse, toNumber);
-
-      // 6. Log AI reply
       await appendMessage(lead.id, 'assistant', aiResponse);
     }
 
-    res.status(200).json({ status: 'processed' });
   } catch (err) {
-    console.error('Webhook error:', err);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Webhook processing error:', err);
+    // Update log with error
+    await logWebhook({
+      eventId,
+      eventType: eventType || 'unknown',
+      payload: payload || {},
+      outcomeStatus: 'failed',
+      errorMessage: err.message
+    });
   }
 });
 

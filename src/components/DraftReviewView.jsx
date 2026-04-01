@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import AIPlayground from './AIPlayground';
 
 export default function DraftReviewView({ draft, onClose, onActivate }) {
   // Merge the top-level draft info with the rich scrape_data
@@ -8,7 +9,9 @@ export default function DraftReviewView({ draft, onClose, onActivate }) {
     ...(draft.scrape_data || {})
   });
   const [isActivating, setIsActivating] = useState(false);
+  const [activatedBusinessId, setActivatedBusinessId] = useState(null);
   const [activeSection, setActiveSection] = useState('basics');
+  const [showPlayground, setShowPlayground] = useState(false);
 
   const handleFieldChange = (field, value) => {
     setEditedDraft(prev => ({ ...prev, [field]: value }));
@@ -22,7 +25,7 @@ export default function DraftReviewView({ draft, onClose, onActivate }) {
 
     setIsActivating(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const apiUrl = import.meta.env.VITE_API_URL || '';
       const res = await fetch(`${apiUrl}/api/admin/create-client`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -32,6 +35,7 @@ export default function DraftReviewView({ draft, onClose, onActivate }) {
       const result = await res.json();
       if (!res.ok) throw new Error(result.error || 'Activation failed');
 
+      setActivatedBusinessId(result.businessId);
       onActivate();
     } catch (err) {
       console.error('Activation Error:', err);
@@ -84,16 +88,39 @@ export default function DraftReviewView({ draft, onClose, onActivate }) {
               >
                 <span className="material-symbols-outlined">close</span>
               </button>
+              {activatedBusinessId || editedDraft.draft_status === 'activated' ? (
+                <div className="flex items-center gap-3">
+                  <span className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-2xl text-[10px] font-black uppercase tracking-widest">
+                    <span className="material-symbols-outlined text-[14px]">check_circle</span> Activated
+                  </span>
+                  <a
+                    href="/app"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-6 py-4 bg-amber-500 text-black text-[10px] font-black uppercase tracking-widest rounded-2xl hover:bg-amber-400 transition-all shadow-xl shadow-amber-500/20 flex items-center gap-2"
+                  >
+                    <span className="material-symbols-outlined text-[14px]">open_in_new</span> View Dashboard
+                  </a>
+                </div>
+              ) : (
+                <button
+                  disabled={isActivating}
+                  onClick={handleActivate}
+                  className="px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all bg-indigo-500 text-white hover:bg-indigo-600 shadow-xl shadow-indigo-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isActivating ? (
+                    <span className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-[14px] animate-spin">progress_activity</span> Activating...
+                    </span>
+                  ) : 'Approve & Activate'}
+                </button>
+              )}
               <button 
-                disabled={isActivating || editedDraft.draft_status === 'activated'}
-                onClick={handleActivate}
-                className={`px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${
-                  editedDraft.draft_status === 'activated' 
-                  ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20' 
-                  : 'bg-indigo-500 text-white hover:bg-indigo-600 shadow-xl shadow-indigo-500/20'
-                }`}
+                onClick={() => setShowPlayground(true)}
+                className="px-6 py-4 bg-[#060e20] border border-white/10 text-indigo-400 text-[10px] font-black uppercase tracking-widest rounded-2xl hover:bg-indigo-500 hover:text-white transition-all shadow-xl flex items-center gap-2 group"
               >
-                {isActivating ? 'Activating...' : editedDraft.draft_status === 'activated' ? 'Already Active' : 'Approve & Activate'}
+                <span className="material-symbols-outlined text-[14px] group-hover:animate-pulse">psychology</span>
+                Test AI Response
               </button>
            </div>
         </div>
@@ -212,11 +239,156 @@ export default function DraftReviewView({ draft, onClose, onActivate }) {
                    </div>
                  )}
                  
-                 {/* Logic for more sections... */}
+                 {activeSection === 'knowledge' && (
+                   <div className="space-y-12">
+                     {/* Qualification Questions */}
+                     <div className="space-y-4">
+                       <div className="flex items-center justify-between">
+                         <h4 className="text-[10px] font-black uppercase text-slate-500 tracking-widest">Qualification Questions</h4>
+                         <button
+                           onClick={() => handleFieldChange('qualification_questions', [...(editedDraft.qualification_questions || []), ''])}
+                           className="flex items-center gap-1 px-3 py-1.5 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-indigo-500 hover:text-white transition-all"
+                         >
+                           <span className="material-symbols-outlined text-[12px]">add</span> Add
+                         </button>
+                       </div>
+                       <div className="space-y-3">
+                         {(editedDraft.qualification_questions || []).map((q, i) => (
+                           <div key={i} className="flex items-center gap-3">
+                             <span className="text-[10px] font-black text-slate-600 w-5 shrink-0">{i + 1}.</span>
+                             <input
+                               type="text"
+                               value={q}
+                               onChange={e => {
+                                 const updated = [...editedDraft.qualification_questions];
+                                 updated[i] = e.target.value;
+                                 handleFieldChange('qualification_questions', updated);
+                               }}
+                               className="flex-1 bg-white/5 border border-white/5 rounded-xl p-3 text-xs text-white outline-none focus:border-indigo-500"
+                             />
+                             <button
+                               onClick={() => handleFieldChange('qualification_questions', editedDraft.qualification_questions.filter((_, idx) => idx !== i))}
+                               className="p-2 text-slate-600 hover:text-rose-400 transition-colors"
+                             >
+                               <span className="material-symbols-outlined text-[14px]">close</span>
+                             </button>
+                           </div>
+                         ))}
+                         {!(editedDraft.qualification_questions?.length) && (
+                           <p className="text-[11px] text-slate-600 italic">No qualification questions extracted. Add some above.</p>
+                         )}
+                       </div>
+                     </div>
+
+                     {/* Handoff Keywords */}
+                     <div className="space-y-4">
+                       <h4 className="text-[10px] font-black uppercase text-slate-500 tracking-widest">Escalation Keywords</h4>
+                       <p className="text-[10px] text-slate-600">If a lead says any of these words, the AI will flag for human takeover.</p>
+                       <div className="flex flex-wrap gap-2">
+                         {(editedDraft.handoff_keywords || []).map((kw, i) => (
+                           <span key={i} className="flex items-center gap-1.5 px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-lg text-[10px] font-bold">
+                             {kw}
+                             <button onClick={() => handleFieldChange('handoff_keywords', editedDraft.handoff_keywords.filter((_, idx) => idx !== i))}>
+                               <span className="material-symbols-outlined text-[11px]">close</span>
+                             </button>
+                           </span>
+                         ))}
+                         <input
+                           type="text"
+                           placeholder="+ add keyword"
+                           className="px-3 py-1.5 bg-white/5 border border-white/5 rounded-lg text-[10px] text-white outline-none focus:border-rose-500/50 placeholder:text-slate-600 w-32"
+                           onKeyDown={e => {
+                             if (e.key === 'Enter' && e.target.value.trim()) {
+                               handleFieldChange('handoff_keywords', [...(editedDraft.handoff_keywords || []), e.target.value.trim()]);
+                               e.target.value = '';
+                             }
+                           }}
+                         />
+                       </div>
+                     </div>
+
+                     {/* FAQ Entries */}
+                     <div className="space-y-4">
+                       <div className="flex items-center justify-between">
+                         <h4 className="text-[10px] font-black uppercase text-slate-500 tracking-widest">FAQ Entries</h4>
+                         <button
+                           onClick={() => handleFieldChange('faq_entries', [...(editedDraft.faq_entries || []), { question: '', answer: '' }])}
+                           className="flex items-center gap-1 px-3 py-1.5 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-indigo-500 hover:text-white transition-all"
+                         >
+                           <span className="material-symbols-outlined text-[12px]">add</span> Add
+                         </button>
+                       </div>
+                       <div className="space-y-4">
+                         {(editedDraft.faq_entries || []).map((faq, i) => (
+                           <div key={i} className="bg-white/3 border border-white/5 rounded-2xl p-5 space-y-3 relative">
+                             <button
+                               onClick={() => handleFieldChange('faq_entries', editedDraft.faq_entries.filter((_, idx) => idx !== i))}
+                               className="absolute top-4 right-4 p-1 text-slate-600 hover:text-rose-400 transition-colors"
+                             >
+                               <span className="material-symbols-outlined text-[14px]">close</span>
+                             </button>
+                             <div className="space-y-1.5">
+                               <label className="text-[9px] font-black uppercase text-slate-600 tracking-widest">Question</label>
+                               <input
+                                 type="text"
+                                 value={faq.question || ''}
+                                 onChange={e => {
+                                   const updated = [...editedDraft.faq_entries];
+                                   updated[i] = { ...updated[i], question: e.target.value };
+                                   handleFieldChange('faq_entries', updated);
+                                 }}
+                                 className="w-full bg-white/5 border border-white/5 rounded-xl p-3 text-xs text-white outline-none focus:border-indigo-500"
+                               />
+                             </div>
+                             <div className="space-y-1.5">
+                               <label className="text-[9px] font-black uppercase text-slate-600 tracking-widest">Answer</label>
+                               <textarea
+                                 rows={2}
+                                 value={faq.answer || ''}
+                                 onChange={e => {
+                                   const updated = [...editedDraft.faq_entries];
+                                   updated[i] = { ...updated[i], answer: e.target.value };
+                                   handleFieldChange('faq_entries', updated);
+                                 }}
+                                 className="w-full bg-white/5 border border-white/5 rounded-xl p-3 text-xs text-white outline-none focus:border-indigo-500 resize-none"
+                               />
+                             </div>
+                           </div>
+                         ))}
+                         {!(editedDraft.faq_entries?.length) && (
+                           <p className="text-[11px] text-slate-600 italic">No FAQs extracted. Add some above.</p>
+                         )}
+                       </div>
+                     </div>
+
+                     {/* Raw Source Data */}
+                     <div className="space-y-4">
+                       <h4 className="text-[10px] font-black uppercase text-slate-500 tracking-widest">Raw Source Data</h4>
+                       <pre className="bg-black/30 border border-white/5 rounded-2xl p-6 text-[10px] text-slate-400 overflow-x-auto whitespace-pre-wrap leading-relaxed font-mono max-h-64 overflow-y-auto custom-scrollbar">
+                         {JSON.stringify(editedDraft.scrape_data || {}, null, 2)}
+                       </pre>
+                     </div>
+                   </div>
+                 )}
               </div>
            </div>
         </div>
       </motion.div>
+
+      <AnimatePresence>
+        {showPlayground && (
+          <AIPlayground 
+            config={{
+              businessName: editedDraft.business_name,
+              services: editedDraft.services_offered,
+              tone: editedDraft.brand_tone,
+              bio: editedDraft.short_business_summary,
+              customRules: editedDraft.hard_response_rules?.join('\n')
+            }}
+            onClose={() => setShowPlayground(false)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
