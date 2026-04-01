@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import '../styles/dashboard.css'
-import { getDashboardStats, getLeads, getLiveEvents, addLead, deleteLead, createSampleLead, toggleLeadUrgency } from '../lib/queries'
-import { useAuth } from '../context/AuthContext'
-import { supabase } from '../lib/supabase'
-import InfoExplainer from '../components/InfoExplainer'
-import AITrainingOverlay from '../components/AITrainingOverlay'
-import BookingsTab from '../views/BookingsTab'
-import BookingModal from '../components/BookingModal'
-import NotificationCenter from '../components/NotificationCenter'
-import AdminDashboard from '../views/AdminDashboard'
+import { getDashboardStats, getLeads, getLiveEvents, addLead, deleteLead, createSampleLead, toggleLeadUrgency } from '../lib/queries.js'
+import { useAuth } from '../context/AuthContext.jsx'
+import { supabase } from '../lib/supabase.js'
+import InfoExplainer from '../components/InfoExplainer.jsx'
+import AITrainingOverlay from '../components/AITrainingOverlay.jsx'
+import BookingsTab from '../views/BookingsTab.jsx'
+import BookingModal from '../components/BookingModal.jsx'
+import NotificationCenter from '../components/NotificationCenter.jsx'
+import AdminDashboard from '../views/AdminDashboard.jsx'
 
 const SunIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 15.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
@@ -32,7 +32,7 @@ function formatPhone(value) {
   return `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`
 }
 
-export default function AppDashboard({ tab, onTabChange, onLogout, theme, toggleTheme, businessName, setBusinessName, isDemo = false }) {
+export default function AppDashboard({ onTabChange, onLogout, toggleTheme, businessName, setBusinessName, isDemo = false }) {
   const { user } = useAuth()
   const [searchParams, setSearchParams] = useSearchParams()
   const currentTab = searchParams.get('tab') || 'overview'
@@ -56,6 +56,7 @@ export default function AppDashboard({ tab, onTabChange, onLogout, theme, toggle
   const [newMapping, setNewMapping] = useState({ service: '', eventId: '' })
   const [handoffPhone, setHandoffPhone] = useState('')
   const [aiNiche, setAiNiche] = useState('General')
+  const [loading, setLoading] = useState(false)
   
   // 👑 ADMIN STATE
   const isAdmin = !isDemo && (user?.email === 'jdouglas8585@gmail.com' || user?.email === 'officialzenovaai@gmail.com')
@@ -1056,8 +1057,7 @@ function SettingsTab({
           integrations: {
             cal_com: calConfig
           },
-          handoff_phone: handoffPhone,
-        ai_niche: aiNiche
+          ai_niche: aiNiche
         });
       setHasChanges(false); alert('Settings Hub Updated Successfully');
     } catch (err) { console.error('Save error:', err); }
@@ -1397,7 +1397,7 @@ function SettingsTab({
                                   setFaqs([...faqs, { ...tpl, id: crypto.randomUUID() }]);
                                   return;
                                }
-                               const { data, error } = await supabase.from('faqs').insert([{ business_id: businessId, q: tpl.q, a: tpl.a }]).select().single();
+                               await supabase.from('faqs').insert([{ business_id: businessId, q: tpl.q, a: tpl.a }]).select().single();
                                if (data) setFaqs([...faqs, data]);
                             }}
                             className="p-5 bg-[#060e20]/40 border border-white/5 rounded-[2rem] text-left hover:border-indigo-500/30 transition-all group relative overflow-hidden"
@@ -2051,7 +2051,7 @@ function LoadingSkeleton() {
 }
 
 function OnboardingOverlay({ onComplete, isDemo = false }) {
-  const [step, setStep] = useState(1);
+  const [step] = useState(1);
   const [name, setName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   

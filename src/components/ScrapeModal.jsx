@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { onboardingAssistant } from '../services/onboardingAssistant';
-import { supabase } from '../lib/supabase';
+import { onboardingAssistant } from '../services/onboardingAssistant.js';
+import { supabase } from '../lib/supabase.js';
 
 export default function ScrapeModal({ onClose }) {
   const [url, setUrl] = useState('');

@@ -1,4 +1,4 @@
-import { SAMPLE_LEADS, DASHBOARD_STATS, INTAKE_QUESTIONS } from '../data/mock'
+import { SAMPLE_LEADS, DASHBOARD_STATS, INTAKE_QUESTIONS } from '../data/mock.js'
 
 // Simulate network delay
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))

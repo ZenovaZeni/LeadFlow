@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getAvailableSlots, createBooking } from '../lib/queries'
 
-export default function BookingModal({ lead, isOpen, onClose, isDemo, businessId }) {
+export default function BookingModal({ lead, isOpen, onClose, businessId }) {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
   const [slots, setSlots] = useState([])
   const [selectedTime, setSelectedTime] = useState('')

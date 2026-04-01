@@ -1,5 +1,5 @@
-import { supabase } from './supabase'
-import { firecrawl } from '../services/firecrawl'
+import { supabase } from './supabase.js'
+import { firecrawl } from '../services/firecrawl.js'
 
 // Fallback Mock Data for Dev (when placeholder keys exist)
 const MOCK_STATS = {

@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
-import { getBookings, updateBookingStatus } from '../lib/queries'
-import InfoExplainer from '../components/InfoExplainer'
+import { useState, useEffect, useCallback } from 'react'
+import { getBookings, updateBookingStatus } from '../lib/queries.js'
+import InfoExplainer from '../components/InfoExplainer.jsx'
 
 export default function BookingsTab({ isDemo = false, businessId = null }) {
   const [bookings, setBookings] = useState([])
@@ -37,17 +37,19 @@ export default function BookingsTab({ isDemo = false, businessId = null }) {
     return bookings.filter(b => b.date === dStr)
   }
 
-  const refreshBookings = () => {
+  const refreshBookings = useCallback(() => {
     setLoading(true)
     getBookings(isDemo, businessId).then(data => {
       setBookings(data || [])
       setLoading(false)
     })
-  }
+  }, [isDemo, businessId])
+
 
   useEffect(() => {
     refreshBookings()
-  }, [isDemo, businessId])
+  }, [refreshBookings])
+
 
   const handleStatusUpdate = async (id, newStatus) => {
     setIsUpdating(true)

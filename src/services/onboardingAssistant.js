@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabase';
+import { supabase } from '../lib/supabase.js';
 
 const API_URL = import.meta.env.VITE_API_URL || ''; // Empty string in prod means relative to the current domain
 

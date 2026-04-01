@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { supabase } from '../../lib/supabase'
-import { saveDraftStep, activateClient } from '../../lib/queries'
+import { supabase } from '../../lib/supabase.js'
+import { saveDraftStep, activateClient } from '../../lib/queries.js'
 
 const STEPS = [
   { id: 1, title: 'Identity', icon: 'badge' },

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { supabase } from '../lib/supabase'
+import { supabase } from '../lib/supabase.js'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
-import { createSampleLead } from '../lib/queries'
+import { useAuth } from '../context/AuthContext.jsx'
+import { createSampleLead } from '../lib/queries.js'
 import '../styles/onboarding.css'
 
 export default function Onboarding() {

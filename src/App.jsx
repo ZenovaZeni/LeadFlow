@@ -4,15 +4,14 @@ import './index.css'
 import './App.css'
 
 // Moved Pages
-import MarketingSite from './pages/MarketingSite'
-import DemoFlow from './pages/DemoFlow'
-import DashboardApp from './pages/DashboardApp'
-import AppDashboard from './pages/AppDashboard'
-import LoginPage from './pages/LoginPage'
-import Onboarding from './pages/Onboarding'
-import BrandedLeadPage from './pages/BrandedLeadPage'
-import ProtectedRoute from './components/ProtectedRoute'
-import InstallPrompt from './components/InstallPrompt'
+import MarketingSite from './pages/MarketingSite.jsx'
+import DemoFlow from './pages/DemoFlow.jsx'
+import AppDashboard from './pages/AppDashboard.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import Onboarding from './pages/Onboarding.jsx'
+import BrandedLeadPage from './pages/BrandedLeadPage.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
+import InstallPrompt from './components/InstallPrompt.jsx'
 
 export default function App() {
   const navigate = useNavigate()

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import '../styles/demo.css'
-import { DEMO_SMS_FLOW, OWNER_NOTIFICATION } from '../data/mock'
+import { DEMO_SMS_FLOW, OWNER_NOTIFICATION } from '../data/mock.js'
 import { TreePine, Wrench, Sparkles, Home, Landmark, Bell, Lightbulb, Sun, Moon } from 'lucide-react'
 
 export default function DemoFlow({ onBack, onViewDashboard, businessName: propBusinessName }) {
@@ -12,8 +12,6 @@ export default function DemoFlow({ onBack, onViewDashboard, businessName: propBu
   const [step, setStep] = useState('form')
   const [formData, setFormData] = useState({ name: '', phone: '', service: '' })
   const [selectedIndustry, setSelectedIndustry] = useState(searchParams.get('industry') || 'tree') 
-
-  const bizInitial = businessName ? businessName.charAt(0).toUpperCase() : 'L'
 
   const handleBack = () => {
     if (step === 'sms') setStep('form')
@@ -325,7 +323,7 @@ function SmsView({ formData, onComplete, businessName, selectedIndustry }) {
     const doneTimer = setTimeout(() => onComplete(), DEMO_SMS_FLOW[DEMO_SMS_FLOW.length - 1].delay + 3500)
     timers.push(doneTimer)
     return () => timers.forEach(clearTimeout)
-  }, [])
+  }, [leadName, displayName, industryData.text, industryData.service, onComplete])
 
   useEffect(() => {
     if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight

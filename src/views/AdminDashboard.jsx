@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import AdminOverview from '../components/admin/AdminOverview.jsx'
 import DraftsManager from '../components/admin/DraftsManager.jsx'
@@ -6,11 +6,11 @@ import OnboardingPipeline from '../components/admin/OnboardingPipeline.jsx'
 import ClientList from '../components/admin/ClientList.jsx'
 import GlobalQATools from '../components/admin/GlobalQATools.jsx'
 import SystemLogs from '../components/admin/SystemLogs.jsx'
-import { toggleGlobalPause } from '../lib/queries'
+import { toggleGlobalPause } from '../lib/queries.js'
 
 export default function AdminDashboard({ onImpersonate }) {
   const [activeTab, setActiveTab] = useState('overview')
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+  const [isSidebarOpen] = useState(true)
   const [isPaused, setIsPaused] = useState(false)
 
   const handleGlobalPause = async () => {

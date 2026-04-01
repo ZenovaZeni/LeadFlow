@@ -1,4 +1,4 @@
-import { INDUSTRY_PROMPTS } from '../data/industryPrompts';
+import { INDUSTRY_PROMPTS } from '../data/industryPrompts.js';
 
 /**
  * Elite Prompt Engine

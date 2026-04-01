@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { supabase } from '../lib/supabase'
-import { getNotifications, markNotificationRead } from '../lib/queries'
+import { supabase } from '../lib/supabase.js'
+import { getNotifications, markNotificationRead } from '../lib/queries.js'
 
 export default function NotificationCenter({ businessId, isDemo = false }) {
   const [isOpen, setIsOpen] = useState(false)
