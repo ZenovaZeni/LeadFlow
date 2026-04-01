@@ -1,0 +1,13 @@
+{
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
+    },
+    {
+      "source": "/((?!api/|assets/|favicon.ico|favicon.svg|robots.txt|manifest.webmanifest|site.webmanifest|icons/|icons.svg|sitemap.xml).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

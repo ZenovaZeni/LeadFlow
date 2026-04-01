@@ -120,7 +120,7 @@ export default function AdminOverview() {
                </div>
             </div>
         </div>
-      </div>
+
         {/* RECENT ONBOARDING ACTIVITY */}
         <div className="lg:col-span-3 bg-[#091328]/50 rounded-[3rem] p-10 border border-white/5 space-y-10 shadow-2xl">
              <div className="flex items-center justify-between">
@@ -151,6 +151,7 @@ export default function AdminOverview() {
                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">No active onboading sessions</p>
                   </div>
                 )}
+             </div>
         </div>
       </div>
     </div>

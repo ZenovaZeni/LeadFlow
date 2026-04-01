@@ -879,21 +879,6 @@ export async function getAdminOperationalStats() {
   }
 }
 
-export async function getRecentOnboardingDrafts(limit = 5) {
-  if (isPlaceholder()) return [
-    { id: 'd1', business_name: 'Acme Plumbing', draft_status: 'In Progress', updated_at: new Date().toISOString() },
-    { id: 'd2', business_name: 'Stark Industries', draft_status: 'Needs Review', updated_at: new Date().toISOString() }
-  ];
-
-  const { data, error } = await supabase
-    .from('onboarding_drafts')
-    .select('id, business_name, draft_status, updated_at')
-    .order('updated_at', { ascending: false })
-    .limit(limit);
-  
-  if (error) throw error;
-  return data;
-}
 
 export async function getActionQueue() {
   if (isPlaceholder()) return [

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
 import { createManualDraft, updateDraftStatus } from '../../lib/queries'
 import { motion, AnimatePresence } from 'framer-motion'
-import ScrapeModal from '../ScrapeModal'
+import ScrapeModal from '../ScrapeModal.jsx'
 
 export default function DraftsManager() {
   const [drafts, setDrafts] = useState([])

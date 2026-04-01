@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import AIPlayground from '../AIPlayground'
+import AIPlayground from '../AIPlayground.jsx'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function GlobalQATools() {

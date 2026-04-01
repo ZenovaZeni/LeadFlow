@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
 import { motion, AnimatePresence } from 'framer-motion'
-import OnboardingWizard from './OnboardingWizard'
+import OnboardingWizard from './OnboardingWizard.jsx'
 
 export default function OnboardingPipeline() {
   const [clients, setClients] = useState([])

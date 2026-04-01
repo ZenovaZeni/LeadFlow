@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import AdminOverview from '../components/admin/AdminOverview'
-import DraftsManager from '../components/admin/DraftsManager'
-import OnboardingPipeline from '../components/admin/OnboardingPipeline'
-import ClientList from '../components/admin/ClientList'
-import GlobalQATools from '../components/admin/GlobalQATools'
-import SystemLogs from '../components/admin/SystemLogs'
+import AdminOverview from '../components/admin/AdminOverview.jsx'
+import DraftsManager from '../components/admin/DraftsManager.jsx'
+import OnboardingPipeline from '../components/admin/OnboardingPipeline.jsx'
+import ClientList from '../components/admin/ClientList.jsx'
+import GlobalQATools from '../components/admin/GlobalQATools.jsx'
+import SystemLogs from '../components/admin/SystemLogs.jsx'
 import { toggleGlobalPause } from '../lib/queries'
 
 export default function AdminDashboard({ onImpersonate }) {
